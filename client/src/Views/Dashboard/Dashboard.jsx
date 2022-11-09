@@ -1,4 +1,6 @@
 import { NavbarItem } from "../../Components/Navbar";
+import YoutubeIframe from "../../Components/YoutubeIframe";
+import Icon from "../../Components/Icon";
 import logo from "../../assets/logos/digital-base.svg";
 import youtube from "../../assets/icons/youtube-api.svg";
 import seo from "../../assets/icons/seo-api.svg";
@@ -6,6 +8,8 @@ import music from "../../assets/icons/music-engine.svg";
 import payments from "../../assets/icons/payments.svg";
 import settings from "../../assets/icons/settings.svg";
 import logout from "../../assets/icons/logout.svg";
+import arrowUp from "../../assets/icons/arrow-up.svg";
+import arrowDown from "../../assets/icons/arrow-down.svg";
 
 const Dashboard = () => {
   return (
@@ -37,7 +41,9 @@ const Dashboard = () => {
                 <p className="card-header">Subscribers</p>
               </div>
               <div>
-                <p className="card-body">+113</p>
+                <p className="card-body">
+                  +113 <Icon src={arrowDown} size={10} />
+                </p>
               </div>
               <div>
                 <p className="card-content">Compared To (136 Last Month)</p>
@@ -48,7 +54,9 @@ const Dashboard = () => {
                 <p className="card-header">Views</p>
               </div>
               <div>
-                <p className="card-body">252.5K</p>
+                <p className="card-body">
+                  252.5K <Icon src={arrowUp} size={10} />
+                </p>
               </div>
               <div>
                 <p className="card-content">Compared To (241.1K Last Month)</p>
@@ -59,7 +67,9 @@ const Dashboard = () => {
                 <p className="card-header">Revenue</p>
               </div>
               <div>
-                <p className="card-body">$379900</p>
+                <p className="card-body">
+                  $379900 <Icon src={arrowUp} size={10} />
+                </p>
               </div>
               <div>
                 <p className="card-content">Compared To (255000 Last Month)</p>
@@ -88,24 +98,8 @@ const Dashboard = () => {
                   views: "804M",
                   artist: "Dua Lipa",
                 },
-              ].map(({ src, title, views, artist }) => (
-                <div>
-                  <div className="youtube-video-wrapper">
-                    <iframe
-                      width="560"
-                      height="315"
-                      src={src}
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  <p className="youtube-video-meta">
-                    {title} <span>- {artist} </span>
-                  </p>
-                  <p className="youtube-video-description">{views} Views</p>
-                </div>
+              ].map((meta) => (
+                <YoutubeIframe {...meta} />
               ))}
             </div>
             <div class="outlet-content-card-5">
