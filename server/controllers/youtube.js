@@ -1,9 +1,8 @@
 const { google } = require("googleapis");
-const oAuth2Data = require("./client_secret.json");
 
-const CLIENT_ID = oAuth2Data.client_id;
-const CLIENT_SECRET = oAuth2Data.client_secret;
-const REDIRECT_URL = oAuth2Data.redirect_uris[0];
+const CLIENT_ID = process.env.client_id;
+const CLIENT_SECRET = process.env.client_secret;
+const REDIRECT_URL = process.env.redirect_uri;
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
