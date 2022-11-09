@@ -1,4 +1,5 @@
 import { NavbarItem } from "../../Components/Navbar";
+import { Card } from "../../Components/Card";
 import YoutubeIframe from "../../Components/YoutubeIframe";
 import Icon from "../../Components/Icon";
 import logo from "../../assets/logos/digital-base.svg";
@@ -8,8 +9,7 @@ import music from "../../assets/icons/music-engine.svg";
 import payments from "../../assets/icons/payments.svg";
 import settings from "../../assets/icons/settings.svg";
 import logout from "../../assets/icons/logout.svg";
-import arrowUp from "../../assets/icons/arrow-up.svg";
-import arrowDown from "../../assets/icons/arrow-down.svg";
+import { youtubeData } from "../../fakeData";
 
 const Dashboard = () => {
   return (
@@ -36,69 +36,15 @@ const Dashboard = () => {
       <section class="outlet">
         <main class="outlet-container">
           <div class="outlet-content">
-            <div class="outlet-content-card-1">
-              <div>
-                <p className="card-header">Subscribers</p>
-              </div>
-              <div>
-                <p className="card-body">
-                  +113 <Icon src={arrowDown} size={10} />
-                </p>
-              </div>
-              <div>
-                <p className="card-content">Compared To (136 Last Month)</p>
-              </div>
-            </div>
-            <div class="outlet-content-card-2">
-              <div>
-                <p className="card-header">Views</p>
-              </div>
-              <div>
-                <p className="card-body">
-                  252.5K <Icon src={arrowUp} size={10} />
-                </p>
-              </div>
-              <div>
-                <p className="card-content">Compared To (241.1K Last Month)</p>
-              </div>
-            </div>
-            <div class="outlet-content-card-3">
-              <div>
-                <p className="card-header">Revenue</p>
-              </div>
-              <div>
-                <p className="card-body">
-                  $379900 <Icon src={arrowUp} size={10} />
-                </p>
-              </div>
-              <div>
-                <p className="card-content">Compared To (255000 Last Month)</p>
-              </div>
-            </div>
+            <Card heading="Subscribers" data={113} direction="up" />
+            <Card heading="Views" data={228} direction="down" />
+            <Card heading="Revenue" data={379900} direction="up" />
+
             <div class="outlet-content-card-4">
               <div>
                 <p className="card-header">Last 3 Videos With Views</p>
               </div>
-              {[
-                {
-                  src: "https://www.youtube.com/embed/AUvodoVurps",
-                  title: "Unstoppable",
-                  views: "144M",
-                  artist: "Sia",
-                },
-                {
-                  src: "https://www.youtube.com/embed/ki0Ocze98U8",
-                  title: "One Dance",
-                  views: "2.1B",
-                  artist: "Drake",
-                },
-                {
-                  src: "https://www.youtube.com/embed/rH8P_JavvXQ",
-                  title: "One Kiss",
-                  views: "804M",
-                  artist: "Dua Lipa",
-                },
-              ].map((meta) => (
+              {youtubeData.map((meta) => (
                 <YoutubeIframe {...meta} />
               ))}
             </div>

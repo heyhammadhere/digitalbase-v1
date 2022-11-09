@@ -1,11 +1,11 @@
-const Icon = ({ size = 20, src = "" }) => {
+const Icon = ({ size = 20, src = "", margin = "" }) => {
   return (
     <img
       src={src}
       style={{
         width: size,
         height: size,
-        marginRight: "1rem",
+        margin: margin,
       }}
       alt="Icon"
     />

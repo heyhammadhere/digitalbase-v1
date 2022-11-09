@@ -9,7 +9,7 @@ const NavbarItem = ({ iconSrc, text, ...rest }) => {
         alignItems: "center",
       }}
     >
-      <Icon src={iconSrc} />
+      <Icon src={iconSrc} margin="0rem 1rem 0rem 0rem" />
       <span>{text}</span>
     </li>
   );
