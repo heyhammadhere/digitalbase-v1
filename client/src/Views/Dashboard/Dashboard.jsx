@@ -1,6 +1,7 @@
 import { NavbarItem } from "../../Components/Navbar";
 import { Card } from "../../Components/Card";
 import YoutubeIframe from "../../Components/YoutubeIframe";
+import Chart from "../../Components/Chart";
 import Icon from "../../Components/Icon";
 import logo from "../../assets/logos/digital-base.svg";
 import youtube from "../../assets/icons/youtube-api.svg";
@@ -58,10 +59,19 @@ const Dashboard = () => {
                 <p className="card-header">Top 3 Keywords</p>
               </div>
             </div>
-            <div class="outlet-content-card-7">
-              <div>
-                <p className="card-header">Top Video</p>
-              </div>
+            <Card heading="User Statistics" className="outlet-content-card-5" />
+            <Card
+              heading="Top 3 Keywords"
+              action="Details"
+              className="outlet-content-card-6"
+            >
+              <Keyword keywords={["Stefania", "Top", "Popular"]} />
+            </Card>
+            <Card
+              heading="Top Video"
+              action="Details"
+              className="outlet-content-card-7"
+            >
               <div className="youtube-video-wrapper">
                 <iframe
                   width="560"
