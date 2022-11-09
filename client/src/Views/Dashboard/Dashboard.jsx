@@ -1,5 +1,9 @@
+import { Link } from "react-router-dom";
+import Header from "../../Components/Header";
 import { NavbarItem } from "../../Components/Navbar";
 import { Card } from "../../Components/Card";
+import Keyword from "../../Components/Keyword";
+import Thumbnail from "../../Components/Thumbnail";
 import YoutubeIframe from "../../Components/YoutubeIframe";
 import Chart from "../../Components/Chart";
 import Icon from "../../Components/Icon";
@@ -10,38 +14,71 @@ import music from "../../assets/icons/music-engine.svg";
 import payments from "../../assets/icons/payments.svg";
 import settings from "../../assets/icons/settings.svg";
 import logout from "../../assets/icons/logout.svg";
+import thumbnail from "../../assets/images/thumbnail.jpg";
+import calendar from "../../assets/icons/calendar.svg";
+import collapse from "../../assets/icons/collapse.svg";
 import { youtubeData } from "../../fakeData";
 
 const Dashboard = () => {
   return (
     <>
-      <section class="navbar">
-        <nav class="navbar-container">
+      <section className="navbar">
+        <nav className="navbar-container">
           <div className="logo">
             <img src={logo} alt="" />
           </div>
           <ul>
             {[
-              { text: "Youtube API", src: youtube, className: "active" },
+              { text: "Youtube API", src: youtube, classes: "active" },
               { text: "SEO API", src: seo },
               { text: "Music Engine", src: music },
               { text: "Payments", src: payments },
               { text: "Settings", src: settings },
               { text: "Log Out", src: logout },
-            ].map(({ text, src, className }) => (
-              <NavbarItem text={text} iconSrc={src} className={className} />
+            ].map(({ text, src, classes }) => (
+              <Link to="">
+                <NavbarItem text={text} iconSrc={src} classes={classes} />
+              </Link>
             ))}
           </ul>
         </nav>
       </section>
-      <section class="outlet">
-        <main class="outlet-container">
-          <div class="outlet-content">
-            <Card heading="Subscribers" data={113} direction="up" />
-            <Card heading="Views" data={228} direction="down" />
-            <Card heading="Revenue" data={379900} direction="up" />
-
-            <div class="outlet-content-card-4">
+      <section className="outlet">
+        <main className="outlet-container">
+          <Header />
+          <div className="outlet-header">
+            <div>
+              <h1 className="outlet-header-title">Overview</h1>
+            </div>
+            <div className="outlet-header-filter ">
+              <Icon src={calendar} margin="0rem 1rem" />
+              <span>Last 30 Days</span>
+              <Icon src={collapse} size={15} margin="0rem 1rem" />
+            </div>
+          </div>
+          <div className="outlet-content">
+            <Card
+              className="outlet-content-card-1"
+              heading="Subscribers"
+              data={"+113"}
+              previous={"136"}
+              direction="up"
+            />
+            <Card
+              className="outlet-content-card-1"
+              heading="Views"
+              data={"+228"}
+              previous={"241.1K"}
+              direction="down"
+            />
+            <Card
+              className="outlet-content-card-1"
+              heading="Revenue"
+              data={"$379900"}
+              previous={"255000"}
+              direction="up"
+            />
+            <div className="outlet-content-card-4">
               <div>
                 <p className="card-header">Last 3 Videos With Views</p>
               </div>
@@ -49,17 +86,49 @@ const Dashboard = () => {
                 <YoutubeIframe {...meta} />
               ))}
             </div>
-            <div class="outlet-content-card-5">
-              <div>
-                <p className="card-header">User Statistics</p>
-              </div>
-            </div>
-            <div class="outlet-content-card-6">
-              <div>
-                <p className="card-header">Top 3 Keywords</p>
-              </div>
-            </div>
-            <Card heading="User Statistics" className="outlet-content-card-5" />
+            <Card heading="User Statistics" className="outlet-content-card-5">
+              <Chart
+                options={{
+                  chart: {
+                    type: "spline",
+                    height: 150,
+                    backgroundColor: "#24223b",
+                  },
+                  title: {
+                    text: "",
+                  },
+                  xAxis: {
+                    type: "datetime",
+                  },
+                  yAxis: {
+                    title: {
+                      text: "",
+                    },
+                  },
+                  plotOptions: {
+                    spline: {
+                      lineWidth: 2.5,
+                      marker: {
+                        enabled: false,
+                      },
+                      pointInterval: 3600000,
+                      pointStart: Date.UTC(2022, 5, 13, 0, 0, 0),
+                    },
+                  },
+                  legend: { enabled: false },
+                  series: [
+                    {
+                      name: "Hestavollane",
+                      data: [
+                        4.5, 5.1, 4.4, 3.7, 4.2, 3.7, 4.3, 4, 5, 4.9, 4.8, 4.6,
+                        3.9, 3.8, 2.7, 3.1, 2.6, 3.3, 3.8, 4.1, 1, 1.9, 3.2,
+                        3.8, 4.2,
+                      ],
+                    },
+                  ],
+                }}
+              />
+            </Card>
             <Card
               heading="Top 3 Keywords"
               action="Details"
@@ -83,12 +152,17 @@ const Dashboard = () => {
                   allowfullscreen
                 ></iframe>
               </div>
-            </div>
-            <div class="outlet-content-card-8">
-              <div>
-                <p className="card-header">Best Thumbnails</p>
-              </div>
-            </div>
+            </Card>
+            <Card heading="Best Thumbnails" className="outlet-content-card-8">
+              <Thumbnail
+                thumbnails={[
+                  { img: thumbnail, title: "Who Cares", views: "14.6K" },
+                  { img: thumbnail, title: "Who Cares", views: "14.6K" },
+                  { img: thumbnail, title: "Who Cares", views: "14.6K" },
+                  { img: thumbnail, title: "Who Cares", views: "14.6K" },
+                ]}
+              />
+            </Card>
           </div>
         </main>
       </section>
