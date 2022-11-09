@@ -5,6 +5,7 @@ import { Card } from "../../Components/Card";
 import Keyword from "../../Components/Keyword";
 import Thumbnail from "../../Components/Thumbnail";
 import YoutubeIframe from "../../Components/YoutubeIframe";
+import Chart from "../../Components/Chart";
 import Icon from "../../Components/Icon";
 import logo from "../../assets/logos/digital-base.svg";
 import youtube from "../../assets/icons/youtube-api.svg";
@@ -85,7 +86,49 @@ const Dashboard = () => {
                 <YoutubeIframe {...meta} />
               ))}
             </div>
-            <Card heading="User Statistics" className="outlet-content-card-5" />
+            <Card heading="User Statistics" className="outlet-content-card-5">
+              <Chart
+                options={{
+                  chart: {
+                    type: "spline",
+                    height: 150,
+                    backgroundColor: "#24223b",
+                  },
+                  title: {
+                    text: "",
+                  },
+                  xAxis: {
+                    type: "datetime",
+                  },
+                  yAxis: {
+                    title: {
+                      text: "",
+                    },
+                  },
+                  plotOptions: {
+                    spline: {
+                      lineWidth: 2.5,
+                      marker: {
+                        enabled: false,
+                      },
+                      pointInterval: 3600000,
+                      pointStart: Date.UTC(2022, 5, 13, 0, 0, 0),
+                    },
+                  },
+                  legend: { enabled: false },
+                  series: [
+                    {
+                      name: "Hestavollane",
+                      data: [
+                        4.5, 5.1, 4.4, 3.7, 4.2, 3.7, 4.3, 4, 5, 4.9, 4.8, 4.6,
+                        3.9, 3.8, 2.7, 3.1, 2.6, 3.3, 3.8, 4.1, 1, 1.9, 3.2,
+                        3.8, 4.2,
+                      ],
+                    },
+                  ],
+                }}
+              />
+            </Card>
             <Card
               heading="Top 3 Keywords"
               action="Details"
