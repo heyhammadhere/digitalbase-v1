@@ -3,7 +3,6 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const useAuth = () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
   return loggedInUser ? true : false;
 };
 const Auth = () => {

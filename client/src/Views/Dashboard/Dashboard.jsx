@@ -50,8 +50,6 @@ const Dashboard = () => {
     };
     fetchChannel();
   }, []);
-
-  console.log(channelData);
   return (
     <>
       <section className="navbar">
@@ -67,8 +65,8 @@ const Dashboard = () => {
               { text: "Payments", src: payments },
               { text: "Settings", src: settings },
               { text: "Log Out", src: logout },
-            ].map(({ text, src, classes }) => (
-              <Link to="">
+            ].map(({ text, src, classes }, index) => (
+              <Link key={index} to="/">
                 <NavbarItem text={text} iconSrc={src} classes={classes} />
               </Link>
             ))}
@@ -116,8 +114,8 @@ const Dashboard = () => {
               <div>
                 <p className="card-header">Last 3 Videos With Views</p>
               </div>
-              {youtubeData.map((meta) => (
-                <YoutubeIframe {...meta} />
+              {youtubeData.map((meta, index) => (
+                <YoutubeIframe key={index} {...meta} />
               ))}
             </div>
             <Card heading="User Statistics" className="outlet-content-card-5">
@@ -185,9 +183,9 @@ const Dashboard = () => {
                   height="315"
                   src="https://www.youtube.com/embed/ki0Ocze98U8"
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                 ></iframe>
               </div>
             </Card>
