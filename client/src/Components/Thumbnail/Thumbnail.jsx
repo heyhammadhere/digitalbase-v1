@@ -1,6 +1,6 @@
 const Thumbnail = ({ thumbnails = [] }) => {
-  return thumbnails.map(({ img, title, views }) => (
-    <div className="thumbnail">
+  return thumbnails.map(({ img, title, views }, index) => (
+    <div key={index} className="thumbnail">
       <img className="thumbnail-img" src={img} alt="Thumbnail" />
       <div>
         <p className="thumbnail-title">{title}</p>
