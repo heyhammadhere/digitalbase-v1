@@ -3,9 +3,9 @@ import {
   Routes as RoutesWrapper,
   Route,
 } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "./Components/ProtectedRoute";
 import Dashboard from "./Views/Dashboard";
-import Login from "./Views/Auth/LoginButton";
+import Login from "./Views/Login";
 
 const routes = [
   {
@@ -24,14 +24,15 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <RoutesWrapper>
-        {routes.map(({ path, element, isProtected }) =>
+        {routes.map(({ path, element, isProtected }, index) =>
           isProtected ? (
             <Route
+              key={index}
               path={path}
               element={<ProtectedRoute>{element}</ProtectedRoute>}
             />
           ) : (
-            <Route path={path} element={element} />
+            <Route key={index} path={path} element={element} />
           )
         )}
       </RoutesWrapper>

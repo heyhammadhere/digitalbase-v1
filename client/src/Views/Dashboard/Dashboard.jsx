@@ -51,7 +51,7 @@ const Dashboard = () => {
     fetchChannel();
   }, []);
   return (
-    <>
+    <div className="dashboard">
       <section className="navbar">
         <nav className="navbar-container">
           <div className="logo">
@@ -202,7 +202,7 @@ const Dashboard = () => {
           </div>
         </main>
       </section>
-    </>
+    </div>
   );
 };
 

@@ -3,9 +3,11 @@ import { createContext } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
-    <AuthContext.Provider value={loggedInUser}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={user ? user : {}}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

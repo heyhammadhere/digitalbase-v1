@@ -4,7 +4,7 @@ const LoginButton = () => {
   const loginSuccess = (response) => {
     console.log(response);
     localStorage.setItem(
-      "loggedInUser",
+      "user",
       JSON.stringify({
         profile: response.profileObj,
         token: response.tokenObj,
@@ -18,7 +18,7 @@ const LoginButton = () => {
   return (
     <div>
       <GoogleLogin
-        clientId="68497100027-44f20865vmtphc5evfij91gbbtrgiueu.apps.googleusercontent.com"
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Login with Google"
         onSuccess={loginSuccess}
         onFailure={loginFaliure}

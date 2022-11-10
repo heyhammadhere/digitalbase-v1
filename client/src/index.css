@@ -46,7 +46,7 @@ body {
   background: #080421;
 }
 
-#root {
+.dashboard {
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr 4fr;
@@ -358,4 +358,10 @@ body {
 
 .highcharts-credits {
   display: none;
+}
+
+.login {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
 }
