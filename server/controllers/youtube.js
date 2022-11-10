@@ -15,9 +15,9 @@ const getChannelData = (req, res) => {
       dimensions: "day",
       endDate: "2022-09-01",
       ids: "channel==MINE",
-      metrics: "views,subscribersLost",
-      startDate: "2019-08-01",
-      dimensions: "month",
+      metrics: "views,subscribersLost,subscribersGained,likes",
+      startDate: "2021-08-01",
+      dimensions: "day",
     })
     .then((data) => res.send(data.data))
     .catch((error) => {

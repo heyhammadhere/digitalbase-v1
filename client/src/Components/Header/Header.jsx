@@ -1,12 +1,12 @@
 import Icon from "../Icon";
 import notification from "../../assets/icons/notification.svg";
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
     <div className="header">
       <section className="header-title">
         <h4>
-          Welcome Back <span>Janifer</span>
+          Welcome Back <span>{user}</span>
         </h4>
       </section>
       <section className="header-actions">

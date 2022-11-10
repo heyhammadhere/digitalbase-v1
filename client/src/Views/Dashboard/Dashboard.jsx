@@ -18,8 +18,40 @@ import thumbnail from "../../assets/images/thumbnail.jpg";
 import calendar from "../../assets/icons/calendar.svg";
 import collapse from "../../assets/icons/collapse.svg";
 import { youtubeData } from "../../fakeData";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { gapi } from "gapi-script";
 const Dashboard = () => {
+  const [channelData, setChannelData] = useState([]);
+  const [user, setUser] = useState({});
+  const clientId =
+    "68497100027-44f20865vmtphc5evfij91gbbtrgiueu.apps.googleusercontent.com";
+
+  useEffect(() => {
+    const start = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope:
+          "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.profile",
+      });
+    };
+    gapi.load("client:auth2", start);
+
+    const fetchChannel = async () => {
+      const response = JSON.parse(localStorage.getItem("loggedInUser"));
+      setUser(response.profile);
+      const { data } = await axios.post(
+        "http://localhost:5500/youtube/channelData",
+        {
+          tokens: response.token,
+        }
+      );
+      setChannelData(data);
+    };
+    fetchChannel();
+  }, []);
+
+  console.log(channelData);
   return (
     <>
       <section className="navbar">
@@ -45,7 +77,7 @@ const Dashboard = () => {
       </section>
       <section className="outlet">
         <main className="outlet-container">
-          <Header />
+          <Header user={user?.name} />
           <div className="outlet-header">
             <div>
               <h1 className="outlet-header-title">Overview</h1>
@@ -67,9 +99,11 @@ const Dashboard = () => {
             <Card
               className="outlet-content-card-1"
               heading="Views"
-              data={"+228"}
+              data={channelData?.rows?.reduce(
+                (current, previous) => `+${current[1] + previous[1]}`
+              )}
               previous={"241.1K"}
-              direction="down"
+              direction="up"
             />
             <Card
               className="outlet-content-card-1"
@@ -104,10 +138,18 @@ const Dashboard = () => {
                     title: {
                       text: "",
                     },
+                    visible: false,
                   },
                   plotOptions: {
                     spline: {
-                      lineWidth: 2.5,
+                      lineWidth: 3.5,
+                      color: {
+                        linearGradient: { x1: 0, x2: 1 },
+                        stops: [
+                          [0, "#9583FE"],
+                          [1, "#FE82DB"],
+                        ],
+                      },
                       marker: {
                         enabled: false,
                       },
@@ -118,12 +160,8 @@ const Dashboard = () => {
                   legend: { enabled: false },
                   series: [
                     {
-                      name: "Hestavollane",
-                      data: [
-                        4.5, 5.1, 4.4, 3.7, 4.2, 3.7, 4.3, 4, 5, 4.9, 4.8, 4.6,
-                        3.9, 3.8, 2.7, 3.1, 2.6, 3.3, 3.8, 4.1, 1, 1.9, 3.2,
-                        3.8, 4.2,
-                      ],
+                      name: "Views",
+                      data: channelData?.rows?.map((row) => row[1]),
                     },
                   ],
                 }}
