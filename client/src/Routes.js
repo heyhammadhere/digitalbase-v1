@@ -4,37 +4,33 @@ import {
   Route,
 } from "react-router-dom";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import Dashboard from "./Views/Dashboard";
+import DashboardLayout from "./Layout/DashboardLayout";
+import Youtube from "./Views/Dashboard/Youtube";
+import Seo from "./Views/Dashboard/Seo";
+import MusicEngine from "./Views/Dashboard/MusicEngine";
+import Payments from "./Views/Dashboard/Payments";
+import Settings from "./Views/Dashboard/Settings";
 import Login from "./Views/Login";
-
-const routes = [
-  {
-    path: "/",
-    element: <Dashboard />,
-    isProtected: true,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    isProtected: false,
-  },
-];
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <RoutesWrapper>
-        {routes.map(({ path, element, isProtected }, index) =>
-          isProtected ? (
-            <Route
-              key={index}
-              path={path}
-              element={<ProtectedRoute>{element}</ProtectedRoute>}
-            />
-          ) : (
-            <Route key={index} path={path} element={element} />
-          )
-        )}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Youtube />} />
+          <Route path="seo" element={<Seo />} />
+          <Route path="music" element={<MusicEngine />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
       </RoutesWrapper>
     </BrowserRouter>
   );

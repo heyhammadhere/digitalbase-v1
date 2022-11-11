@@ -1,19 +1,11 @@
-import { Link } from "react-router-dom";
+import Navbar from "../../Components/Navbar/Navbar";
 import Header from "../../Components/Header";
-import { NavbarItem } from "../../Components/Navbar";
 import { Card } from "../../Components/Card";
 import Keyword from "../../Components/Keyword";
 import Thumbnail from "../../Components/Thumbnail";
 import YoutubeIframe from "../../Components/YoutubeIframe";
 import Chart from "../../Components/Chart";
 import Icon from "../../Components/Icon";
-import logo from "../../assets/logos/digital-base.svg";
-import youtube from "../../assets/icons/youtube-api.svg";
-import seo from "../../assets/icons/seo-api.svg";
-import music from "../../assets/icons/music-engine.svg";
-import payments from "../../assets/icons/payments.svg";
-import settings from "../../assets/icons/settings.svg";
-import logout from "../../assets/icons/logout.svg";
 import thumbnail from "../../assets/images/thumbnail.jpg";
 import calendar from "../../assets/icons/calendar.svg";
 import collapse from "../../assets/icons/collapse.svg";
@@ -62,30 +54,9 @@ const Dashboard = () => {
   }, []);
   return (
     <div className="dashboard">
-      <section className="navbar">
-        <nav className="navbar-container">
-          <div className="logo">
-            <img src={logo} alt="" />
-          </div>
-          <ul>
-            {[
-              { text: "Youtube API", src: youtube, classes: "active" },
-              { text: "SEO API", src: seo },
-              { text: "Music Engine", src: music },
-              { text: "Payments", src: payments },
-              { text: "Settings", src: settings },
-              { text: "Log Out", src: logout },
-            ].map(({ text, src, classes }, index) => (
-              <Link key={index} to="/">
-                <NavbarItem text={text} iconSrc={src} classes={classes} />
-              </Link>
-            ))}
-          </ul>
-        </nav>
-      </section>
       <section className="outlet">
         <main className="outlet-container">
-          <Header user={user?.name} />
+          <Header user={"heyhammadhere"} />
           <div className="outlet-header">
             <div>
               <h1 className="outlet-header-title">Overview</h1>
