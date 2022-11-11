@@ -4,18 +4,22 @@ import {
   Route,
 } from "react-router-dom";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import DashboardLayout from "./Layout/DashboardLayout";
-import Youtube from "./Views/Dashboard/Youtube";
-import Seo from "./Views/Dashboard/Seo";
-import MusicEngine from "./Views/Dashboard/MusicEngine";
-import Payments from "./Views/Dashboard/Payments";
-import Settings from "./Views/Dashboard/Settings";
 import Login from "./Views/Login";
+import DashboardLayout from "./Layout/DashboardLayout";
+import {
+  Youtube,
+  Seo,
+  MusicEngine,
+  Payments,
+  Settings,
+  Logout,
+} from "./Views/Dashboard";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <RoutesWrapper>
+        <Route path="/login" element={<Login />} />
         <Route
           path="/"
           element={
@@ -29,8 +33,8 @@ const Routes = () => {
           <Route path="music" element={<MusicEngine />} />
           <Route path="payments" element={<Payments />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="logout" element={<Logout />} />
         </Route>
-        <Route path="/login" element={<Login />} />
       </RoutesWrapper>
     </BrowserRouter>
   );
