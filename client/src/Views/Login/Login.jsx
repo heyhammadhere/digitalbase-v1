@@ -5,7 +5,6 @@ import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
   const user = useContext(AuthContext);
-  console.log(user);
   const [isLoggedIn, setIsLoggedIn] = useState(
     Object.keys(user).length ? true : false
   );

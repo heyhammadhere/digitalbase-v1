@@ -1,9 +1,12 @@
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
   return (
     <AuthContext.Provider value={user ? user : {}}>
       {children}

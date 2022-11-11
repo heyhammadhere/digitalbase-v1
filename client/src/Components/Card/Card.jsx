@@ -2,15 +2,43 @@ import Icon from "../Icon";
 import arrowDown from "../../assets/icons/arrow-down.svg";
 import arrowUp from "../../assets/icons/arrow-up.svg";
 import arrowRight from "../../assets/icons/arrow-right.svg";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const Card = ({
   children,
   heading,
   action,
-  data,
   previous,
   direction,
+  matrics,
+  dataCallback,
   ...rest
 }) => {
+  const [channelData, setChannelData] = useState([]);
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const response = JSON.parse(localStorage.getItem("user"));
+
+      const { data } = await axios.post(
+        "http://localhost:5500/youtube/channelData",
+        {
+          tokens: response.token,
+          matrics: matrics,
+        }
+      );
+      dataCallback(data, (res) => {
+        setData(res);
+      });
+      setChannelData(data);
+    };
+    if (matrics) {
+      fetchChannel();
+    }
+  }, []);
+  console.log(channelData);
+
   return (
     <div {...rest}>
       {heading ? (

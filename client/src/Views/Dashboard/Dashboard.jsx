@@ -19,36 +19,32 @@ import calendar from "../../assets/icons/calendar.svg";
 import collapse from "../../assets/icons/collapse.svg";
 import { youtubeData } from "../../fakeData";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { gapi } from "gapi-script";
 const Dashboard = () => {
+  // eslint-disable-next-line
   const [channelData, setChannelData] = useState([]);
-  const [user, setUser] = useState({});
-  const clientId =
-    "68497100027-44f20865vmtphc5evfij91gbbtrgiueu.apps.googleusercontent.com";
+  const [user, setUser] = useState(null);
 
+  const viewCard = (data, cb) => {
+    return cb(
+      data.rows.reduce((current, previous) => `+${current[1] + previous[1]}`)
+    );
+  };
+
+  const subscriberCard = (data, cb) => {
+    console.log("sdfsdfsdf", data);
+    const subsGained = data.rows.reduce((current, previous) => {
+      return `${current[1] + previous[1]}`;
+    });
+    const subsLost = data.rows.reduce((previous, current) => {
+      return `${current[2] + previous[2]}`;
+    });
+
+    console.log("checkingggg", subsGained, subsLost);
+    return cb(subsGained);
+  };
   useEffect(() => {
-    const start = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope:
-          "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.profile",
-      });
-    };
-    gapi.load("client:auth2", start);
-
-    const fetchChannel = async () => {
-      const response = JSON.parse(localStorage.getItem("loggedInUser"));
-      setUser(response.profile);
-      const { data } = await axios.post(
-        "http://localhost:5500/youtube/channelData",
-        {
-          tokens: response.token,
-        }
-      );
-      setChannelData(data);
-    };
-    fetchChannel();
+    const response = JSON.parse(localStorage.getItem("user"));
+    setUser(response.profile);
   }, []);
   return (
     <div className="dashboard">
@@ -90,18 +86,18 @@ const Dashboard = () => {
             <Card
               className="outlet-content-card-1"
               heading="Subscribers"
-              data={"+113"}
               previous={"136"}
               direction="up"
+              matrics="subscribersGained,subscribersLost"
+              dataCallback={subscriberCard}
             />
             <Card
               className="outlet-content-card-1"
               heading="Views"
-              data={channelData?.rows?.reduce(
-                (current, previous) => `+${current[1] + previous[1]}`
-              )}
               previous={"241.1K"}
               direction="up"
+              matrics="views"
+              dataCallback={viewCard}
             />
             <Card
               className="outlet-content-card-1"
