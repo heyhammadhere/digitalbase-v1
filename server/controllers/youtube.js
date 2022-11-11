@@ -31,21 +31,23 @@ const topVideo = (req, res) => {
   const tokens = req.body.tokens;
   oAuth2Client.setCredentials(tokens);
 
-  res.send(oAuth2Client);
   const populerVideos = google.youtube({
     version: "v3",
     auth: oAuth2Client,
   });
 
-  // populerVideos.channels
-  //   .list({
-  //     part: "snippet",
-  //     forUsername: "duckyBhai",
-  //   })
-  //   .then((data) => res.send(data.data))
-  //   .catch((error) => {
-  //     console.log("The API returned an error: ", error);
-  //   });
+  populerVideos.channels
+    .list({
+      access_token: tokens.access_token,
+      part: "snippet",
+      maxResults: 50,
+      order: "viewCount",
+      mine: true,
+    })
+    .then((data) => res.send(data.data))
+    .catch((error) => {
+      console.log("The API returned an error: ", error);
+    });
 };
 
 module.exports = {

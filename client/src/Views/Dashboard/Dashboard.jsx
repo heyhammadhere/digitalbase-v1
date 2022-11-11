@@ -19,6 +19,7 @@ import calendar from "../../assets/icons/calendar.svg";
 import collapse from "../../assets/icons/collapse.svg";
 import { youtubeData } from "../../fakeData";
 import { useEffect, useState } from "react";
+import { gapi } from "gapi-script";
 const Dashboard = () => {
   // eslint-disable-next-line
   const [channelData, setChannelData] = useState([]);
