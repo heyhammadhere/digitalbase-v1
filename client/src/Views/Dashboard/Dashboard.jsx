@@ -25,22 +25,36 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
 
   const viewCard = (data, cb) => {
-    return cb(
-      data.rows.reduce((current, previous) => `+${current[1] + previous[1]}`)
-    );
+    const rows = data.rows.map((row) => {
+      return row[1];
+    });
+    const views = rows.reduce((current, previous) => current + previous);
+    return cb(`+${views}`);
   };
 
   const subscriberCard = (data, cb) => {
-    console.log("sdfsdfsdf", data);
-    const subsGained = data.rows.reduce((current, previous) => {
-      return `${current[1] + previous[1]}`;
+    let state = true;
+    const subsGainedRow = data.rows.map((row) => {
+      return row[1];
     });
-    const subsLost = data.rows.reduce((previous, current) => {
-      return `${current[2] + previous[2]}`;
+    const subsLostRow = data.rows.map((row) => {
+      return row[2];
     });
 
-    console.log("checkingggg", subsGained, subsLost);
-    return cb(subsGained);
+    const subsGained = subsGainedRow.reduce(
+      (current, previous) => current + previous
+    );
+    const subsLost = subsLostRow.reduce(
+      (current, previous) => current + previous
+    );
+
+    if (subsGained >= subsLost) {
+      state = true;
+    } else {
+      state = false;
+    }
+
+    return cb(state ? `+${subsGained}` : `-${subsLost}`);
   };
   useEffect(() => {
     const response = JSON.parse(localStorage.getItem("user"));
@@ -96,7 +110,7 @@ const Dashboard = () => {
               heading="Views"
               previous={"241.1K"}
               direction="up"
-              matrics="views"
+              matrics="views,annotationClickThroughRate"
               dataCallback={viewCard}
             />
             <Card
@@ -173,17 +187,7 @@ const Dashboard = () => {
               action="Details"
               className="outlet-content-card-7"
             >
-              <div className="youtube-video-wrapper">
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/ki0Ocze98U8"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              <YoutubeIframe src="https://www.youtube.com/embed/xzrE-PYzH7M" />
             </Card>
             <Card heading="Best Thumbnails" className="outlet-content-card-8">
               <Thumbnail

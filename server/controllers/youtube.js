@@ -5,7 +5,6 @@ const oAuth2Client = new google.auth.OAuth2();
 const getChannelData = (req, res) => {
   const tokens = req.body.tokens;
   const matrics = req.body.matrics;
-  console.log(matrics);
   oAuth2Client.setCredentials(tokens);
   const youtubeAnalytics = google.youtubeAnalytics({
     version: "v2",
@@ -22,12 +21,34 @@ const getChannelData = (req, res) => {
     })
     .then((data) => res.send(data.data))
     .catch((error) => {
-      console.log("The API returned an error: ");
+      console.log("The API returned an error: ", error);
     });
 
   console.log("Authed successfully");
 };
 
+const topVideo = (req, res) => {
+  const tokens = req.body.tokens;
+  oAuth2Client.setCredentials(tokens);
+
+  res.send(oAuth2Client);
+  const populerVideos = google.youtube({
+    version: "v3",
+    auth: oAuth2Client,
+  });
+
+  // populerVideos.channels
+  //   .list({
+  //     part: "snippet",
+  //     forUsername: "duckyBhai",
+  //   })
+  //   .then((data) => res.send(data.data))
+  //   .catch((error) => {
+  //     console.log("The API returned an error: ", error);
+  //   });
+};
+
 module.exports = {
   getChannelData,
+  topVideo,
 };

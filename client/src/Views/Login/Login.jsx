@@ -9,7 +9,7 @@ const Login = () => {
 
   useEffect(() => {
     setIsLoggedIn(Object.keys(user).length ? true : false);
-  }, [user]);
+  }, [user, isLoggedIn]);
   const handleOnSuccess = ({ profileObj, tokenObj }) => {
     localStorage.setItem(
       "user",
