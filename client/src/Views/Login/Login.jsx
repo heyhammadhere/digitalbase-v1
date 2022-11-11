@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
   const user = useContext(AuthContext);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    Object.keys(user).length ? true : false
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(Object.keys(user).length ? true : false);
+  }, [user]);
   const handleOnSuccess = ({ profileObj, tokenObj }) => {
     localStorage.setItem(
       "user",
@@ -22,6 +24,7 @@ const Login = () => {
     console.log(error);
   };
   console.log(isLoggedIn);
+
   return (
     <div className="login">
       {isLoggedIn ? (
