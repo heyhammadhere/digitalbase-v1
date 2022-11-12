@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import NavbarItem from "./NavbarItem";
 import logo from "../../assets/logos/digital-base.svg";
 import youtube from "../../assets/icons/youtube-api.svg";
@@ -15,18 +14,16 @@ const Navbar = () => {
         <div className="logo">
           <img src={logo} alt="" />
         </div>
-        <ul>
-          {[
-            { path: "/", text: "Youtube API", src: youtube },
-            { path: "/seo", text: "SEO API", src: seo },
-            { path: "/music", text: "Music Engine", src: music },
-            { path: "/payments", text: "Payments", src: payments },
-            { path: "/settings", text: "Settings", src: settings },
-            { path: "/logout", text: "Log Out", src: logout },
-          ].map((item, index) => (
-            <NavbarItem key={index} {...item} />
-          ))}
-        </ul>
+        {[
+          { path: "/", text: "Youtube API", src: youtube },
+          { path: "/seo", text: "SEO API", src: seo },
+          { path: "/music", text: "Music Engine", src: music },
+          { path: "/payments", text: "Payments", src: payments },
+          { path: "/settings", text: "Settings", src: settings },
+          { path: "/logout", text: "Log Out", src: logout },
+        ].map((item, index) => (
+          <NavbarItem key={index} {...item} />
+        ))}
       </nav>
     </section>
   );

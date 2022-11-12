@@ -55,10 +55,10 @@ const Youtube = () => {
         <div>
           <h1 className="outlet-header-title">Overview</h1>
         </div>
-        <div className="outlet-header-filter ">
-          <Icon src={calendar} margin="0rem 1rem" />
+        <div className="outlet-header-filter">
+          <Icon src={calendar} margin="0rem 1rem 0rem 0rem" />
           <span>Last 30 Days</span>
-          <Icon src={collapse} size={15} margin="0rem 1rem" />
+          <Icon src={collapse} size={15} margin="0rem 0rem 0rem 1rem" />
         </div>
       </div>
       <div className="outlet-content">
