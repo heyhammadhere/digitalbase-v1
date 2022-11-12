@@ -1,8 +1,8 @@
 const YoutubeIframe = ({
-  src = "",
-  title = "",
-  artist = "",
+  videoTitle = "",
+  channelName = "",
   views = "",
+  videoId = "",
   ...rest
 }) => {
   return (
@@ -11,7 +11,7 @@ const YoutubeIframe = ({
         <iframe
           width="560"
           height="315"
-          src={src}
+          src={`https://www.youtube.com/embed/${videoId}`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -19,7 +19,8 @@ const YoutubeIframe = ({
         ></iframe>
       </div>
       <p className="youtube-video-meta">
-        {title} <span>- {artist} </span>
+        {videoTitle}
+        <span>- {channelName} </span>
       </p>
       <p className="youtube-video-description">{views} Views</p>
     </div>

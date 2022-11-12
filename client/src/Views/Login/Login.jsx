@@ -33,6 +33,8 @@ const Login = () => {
           onSuccess={handleOnSuccess}
           onFailure={handleOnFailure}
           cookiePolicy="single_host_origin"
+          accessType="offline"
+          scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/youtube.readonly"
         />
       )}
     </div>

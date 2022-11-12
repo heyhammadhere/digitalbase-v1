@@ -8,6 +8,7 @@ import Icon from "../../Components/Icon";
 import calendar from "../../assets/icons/calendar.svg";
 import collapse from "../../assets/icons/collapse.svg";
 import thumbnail from "../../assets/images/thumbnail.jpg";
+import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
 
 const Youtube = () => {
   const [channelData, setChannelData] = useState([]);
@@ -89,28 +90,7 @@ const Youtube = () => {
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
           </div>
-          {[
-            {
-              src: "https://www.youtube.com/embed/AUvodoVurps",
-              title: "Unstoppable",
-              views: "144M",
-              artist: "Sia",
-            },
-            {
-              src: "https://www.youtube.com/embed/ki0Ocze98U8",
-              title: "One Dance",
-              views: "2.1B",
-              artist: "Drake",
-            },
-            {
-              src: "https://www.youtube.com/embed/rH8P_JavvXQ",
-              title: "One Kiss",
-              views: "804M",
-              artist: "Dua Lipa",
-            },
-          ].map((meta, index) => (
-            <YoutubeIframe key={index} {...meta} />
-          ))}
+          {/* <IframeRenderer endpoint="latestVideos" /> */}
         </div>
         <Card heading="User Statistics" className="outlet-content-card-5">
           <Chart
@@ -171,7 +151,7 @@ const Youtube = () => {
           action="Details"
           className="outlet-content-card-7"
         >
-          <YoutubeIframe src="https://www.youtube.com/embed/xzrE-PYzH7M" />
+          <IframeRenderer endpoint="topVideo" />
         </Card>
         <Card heading="Best Thumbnails" className="outlet-content-card-8">
           <Thumbnail
