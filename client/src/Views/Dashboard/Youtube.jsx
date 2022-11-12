@@ -89,6 +89,7 @@ const Youtube = () => {
         <div className="outlet-content-card-4">
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
+            <IframeRenderer endpoint="latestVideos" />
           </div>
         </div>
         <Card heading="User Statistics" className="outlet-content-card-5">
