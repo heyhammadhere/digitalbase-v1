@@ -5,6 +5,7 @@ import seo from "../../Assets/icons/seo-api.svg";
 import music from "../../Assets/icons/music-engine.svg";
 import payments from "../../Assets/icons/payments.svg";
 import settings from "../../Assets/icons/settings.svg";
+import profile from "../../Assets/icons/profile.svg";
 import logout from "../../Assets/icons/logout.svg";
 
 const Navbar = () => {
@@ -20,6 +21,7 @@ const Navbar = () => {
           { path: "/music", text: "Music Engine", src: music },
           { path: "/payments", text: "Payments", src: payments },
           { path: "/settings", text: "Settings", src: settings },
+          { path: "/profile", text: "Profile", src: profile },
           { path: "/logout", text: "Log Out", src: logout },
         ].map((item, index) => (
           <NavbarItem key={index} {...item} />

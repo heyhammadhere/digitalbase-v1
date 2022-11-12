@@ -13,15 +13,16 @@
 
 ::-webkit-scrollbar {
   width: 0.5rem;
+  background: var(--bgPrimaryMain);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--clrPrimaryMain);
+  background: var(--clrNavbarText);
   border-radius: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--clrPrimaryLight);
+  background: #8579b4aa;
 }
 
 *,
@@ -113,6 +114,14 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--bgPrimaryLight);
+  transition: 100ms all ease;
+}
+
+.outlet-header-filter:active {
+  transform: scale(95%);
 }
 
 .outlet-header-filter span {
@@ -215,6 +224,11 @@ body {
   display: grid;
   place-items: center;
   cursor: pointer;
+  transition: 100ms all ease-in-out;
+}
+
+.header-notification:active {
+  transform: scale(90%);
 }
 
 .card-header {
@@ -237,6 +251,15 @@ body {
   font-size: 13px;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #2a2747;
+  transition: 100ms all ease-in-out;
+}
+
+.card-action-button:active {
+  transform: scale(90%);
 }
 
 .card-body {
@@ -368,6 +391,7 @@ body {
   .dashboard {
     grid-template-columns: 1fr;
     margin-bottom: 4.5rem;
+    height: auto;
   }
   .navbar {
     position: fixed;
