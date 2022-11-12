@@ -6,6 +6,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 const Login = () => {
   const [user, setUser] = useContext(AuthContext);
   const handleOnSuccess = useCallback(({ profileObj, tokenObj }) => {
+    const user = {};
     localStorage.setItem(
       "user",
       JSON.stringify({

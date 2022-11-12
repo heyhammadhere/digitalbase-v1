@@ -1,7 +1,7 @@
 import Icon from "../Icon";
-import arrowDown from "../../assets/icons/arrow-down.svg";
-import arrowUp from "../../assets/icons/arrow-up.svg";
-import arrowRight from "../../assets/icons/arrow-right.svg";
+import arrowDown from "../../Assets/icons/arrow-down.svg";
+import arrowUp from "../../Assets/icons/arrow-up.svg";
+import arrowRight from "../../Assets/icons/arrow-right.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const Card = ({

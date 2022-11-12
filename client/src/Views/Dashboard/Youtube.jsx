@@ -5,9 +5,9 @@ import Chart from "../../Components/Chart";
 import Keyword from "../../Components/Keyword";
 import Thumbnail from "../../Components/Thumbnail";
 import Icon from "../../Components/Icon";
-import calendar from "../../assets/icons/calendar.svg";
-import collapse from "../../assets/icons/collapse.svg";
-import thumbnail from "../../assets/images/thumbnail.jpg";
+import calendar from "../../Assets/icons/calendar.svg";
+import collapse from "../../Assets/icons/collapse.svg";
+import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
 
 const Youtube = () => {
@@ -15,26 +15,26 @@ const Youtube = () => {
   const [user, setUser] = useState(null);
 
   const viewCard = (data, cb) => {
-    const rows = data.rows.map((row) => {
+    const rows = data?.rows?.map((row) => {
       return row[1];
     });
-    const views = rows.reduce((current, previous) => current + previous);
+    const views = rows?.reduce((current, previous) => current + previous);
     return cb(`+${views}`);
   };
 
   const subscriberCard = (data, cb) => {
     let state = true;
-    const subsGainedRow = data.rows.map((row) => {
+    const subsGainedRow = data?.rows?.map((row) => {
       return row[1];
     });
-    const subsLostRow = data.rows.map((row) => {
+    const subsLostRow = data?.rows?.map((row) => {
       return row[2];
     });
 
-    const subsGained = subsGainedRow.reduce(
+    const subsGained = subsGainedRow?.reduce(
       (current, previous) => current + previous
     );
-    const subsLost = subsLostRow.reduce(
+    const subsLost = subsLostRow?.reduce(
       (current, previous) => current + previous
     );
 
@@ -56,10 +56,10 @@ const Youtube = () => {
         <div>
           <h1 className="outlet-header-title">Overview</h1>
         </div>
-        <div className="outlet-header-filter ">
-          <Icon src={calendar} margin="0rem 1rem" />
+        <div className="outlet-header-filter">
+          <Icon src={calendar} margin="0rem 1rem 0rem 0rem" />
           <span>Last 30 Days</span>
-          <Icon src={collapse} size={15} margin="0rem 1rem" />
+          <Icon src={collapse} size={15} margin="0rem 0rem 0rem 1rem" />
         </div>
       </div>
       <div className="outlet-content">
@@ -90,7 +90,6 @@ const Youtube = () => {
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
           </div>
-          <IframeRenderer endpoint="latestVideos" />
         </div>
         <Card heading="User Statistics" className="outlet-content-card-5">
           <Chart
@@ -133,7 +132,9 @@ const Youtube = () => {
               series: [
                 {
                   name: "Views",
-                  data: channelData?.rows?.map((row) => row[1]),
+                  data: channelData
+                    ? channelData?.rows?.map((row) => row[1])
+                    : [],
                 },
               ],
             }}

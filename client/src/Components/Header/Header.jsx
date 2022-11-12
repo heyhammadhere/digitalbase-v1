@@ -1,5 +1,5 @@
 import Icon from "../Icon";
-import notification from "../../assets/icons/notification.svg";
+import notification from "../../Assets/icons/notification.svg";
 
 const Header = ({ user }) => {
   return (

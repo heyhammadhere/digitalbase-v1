@@ -19,18 +19,15 @@ const IframeRenderer = ({ endpoint }) => {
       );
 
       setVideoData(video.data);
-      console.log(video.data);
     };
     if (endpoint) {
       fetchData();
     }
   }, []);
-
-  console.log("helllllll", videoData);
   return (
     <div>
-      {videoData
-        ? videoData.map((video) => (
+      {Array.isArray(videoData)
+        ? videoData?.map((video) => (
             <YoutubeIframe
               videoId={video.id.videoId}
               videoTitle={video.snippet.title}
