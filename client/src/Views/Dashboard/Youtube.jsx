@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import YoutubeIframe from "../../Components/YoutubeIframe";
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "../../Context/AuthProvider";
 import Card from "../../Components/Card";
 import Chart from "../../Components/Chart";
 import Keyword from "../../Components/Keyword";
@@ -9,11 +10,23 @@ import calendar from "../../Assets/icons/calendar.svg";
 import collapse from "../../Assets/icons/collapse.svg";
 import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
+const API = axios.create({
+  baseURL: "http://localhost:5500",
+  validateStatus: () => {
+    return true;
+  },
+});
 
 const Youtube = () => {
+  const [user] = useContext(AuthContext);
   const [channelData, setChannelData] = useState([]);
-  const [user, setUser] = useState(null);
-
+  useEffect(() => {
+    (async () => {
+      const { status, data } = await API.post("/", user);
+      const { data: src } = data;
+      const { columnHeaders, rows } = src;
+    })();
+  }, []);
   const viewCard = (data, cb) => {
     const rows = data?.rows?.map((row) => {
       return row[1];
@@ -43,13 +56,8 @@ const Youtube = () => {
     } else {
       state = false;
     }
-
     return cb(state ? `+${subsGained}` : `-${subsLost}`);
   };
-  useEffect(() => {
-    const response = JSON.parse(localStorage.getItem("user"));
-    setUser(response.profile);
-  }, []);
   return (
     <>
       <div className="outlet-header">

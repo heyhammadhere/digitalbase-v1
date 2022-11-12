@@ -2,22 +2,17 @@ import { useCallback, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { AuthContext } from "../../Context/AuthProvider";
+import { SCOPES } from "../../constants";
 
 const Login = () => {
   const [user, setUser] = useContext(AuthContext);
   const handleOnSuccess = useCallback(({ profileObj, tokenObj }) => {
-    const user = {};
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        profile: profileObj,
-        token: tokenObj,
-      })
-    );
-    setUser({
+    const user = {
       profile: profileObj,
       token: tokenObj,
-    });
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
   }, []);
   const handleOnFailure = useCallback((error) => {
     console.log(error);
@@ -34,7 +29,7 @@ const Login = () => {
           onFailure={handleOnFailure}
           cookiePolicy="single_host_origin"
           accessType="offline"
-          scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/youtube.readonly"
+          scope={SCOPES.join(" ")}
         />
       )}
     </div>
