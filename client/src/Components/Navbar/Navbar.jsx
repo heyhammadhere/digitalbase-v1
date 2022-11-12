@@ -1,11 +1,11 @@
 import NavbarItem from "./NavbarItem";
-import logo from "../../assets/logos/digital-base.svg";
-import youtube from "../../assets/icons/youtube-api.svg";
-import seo from "../../assets/icons/seo-api.svg";
-import music from "../../assets/icons/music-engine.svg";
-import payments from "../../assets/icons/payments.svg";
-import settings from "../../assets/icons/settings.svg";
-import logout from "../../assets/icons/logout.svg";
+import logo from "../../Assets/logos/digital-base.svg";
+import youtube from "../../Assets/icons/youtube-api.svg";
+import seo from "../../Assets/icons/seo-api.svg";
+import music from "../../Assets/icons/music-engine.svg";
+import payments from "../../Assets/icons/payments.svg";
+import settings from "../../Assets/icons/settings.svg";
+import logout from "../../Assets/icons/logout.svg";
 
 const Navbar = () => {
   return (

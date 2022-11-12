@@ -8,4 +8,5 @@ const {
 router.post("/channelData", getChannelData);
 router.post("/topVideo", topVideo);
 router.post("/latestVideos", latestVideos);
+
 module.exports = router;

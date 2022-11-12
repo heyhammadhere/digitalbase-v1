@@ -5,9 +5,9 @@ import Chart from "../../Components/Chart";
 import Keyword from "../../Components/Keyword";
 import Thumbnail from "../../Components/Thumbnail";
 import Icon from "../../Components/Icon";
-import calendar from "../../assets/icons/calendar.svg";
-import collapse from "../../assets/icons/collapse.svg";
-import thumbnail from "../../assets/images/thumbnail.jpg";
+import calendar from "../../Assets/icons/calendar.svg";
+import collapse from "../../Assets/icons/collapse.svg";
+import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
 
 const Youtube = () => {
