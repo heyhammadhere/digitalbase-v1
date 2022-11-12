@@ -37,7 +37,6 @@ const Card = ({
       fetchChannel();
     }
   }, []);
-  console.log(channelData);
 
   return (
     <div {...rest}>

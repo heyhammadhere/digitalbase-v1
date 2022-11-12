@@ -1,16 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useCallback, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
-  const user = useContext(AuthContext);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(Object.keys(user).length ? true : false);
-  }, [user, isLoggedIn]);
-  const handleOnSuccess = ({ profileObj, tokenObj }) => {
+  const [user, setUser] = useContext(AuthContext);
+  const handleOnSuccess = useCallback(({ profileObj, tokenObj }) => {
     localStorage.setItem(
       "user",
       JSON.stringify({
@@ -18,16 +13,17 @@ const Login = () => {
         token: tokenObj,
       })
     );
-    setIsLoggedIn(true);
-  };
-  const handleOnFailure = (error) => {
+    setUser({
+      profile: profileObj,
+      token: tokenObj,
+    });
+  }, []);
+  const handleOnFailure = useCallback((error) => {
     console.log(error);
-  };
-  console.log(isLoggedIn);
-
+  }, []);
   return (
     <div className="login">
-      {isLoggedIn ? (
+      {Object.keys(user).length ? (
         <Navigate to="/" />
       ) : (
         <GoogleLogin
