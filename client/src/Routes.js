@@ -12,6 +12,7 @@ import {
   MusicEngine,
   Payments,
   Settings,
+  Profile,
   Logout,
 } from "./Views/Dashboard";
 
@@ -33,6 +34,7 @@ const Routes = () => {
           <Route path="music" element={<MusicEngine />} />
           <Route path="payments" element={<Payments />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="logout" element={<Logout />} />
         </Route>
       </RoutesWrapper>
