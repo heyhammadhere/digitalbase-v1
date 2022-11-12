@@ -90,7 +90,7 @@ const Youtube = () => {
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
           </div>
-          {/* <IframeRenderer endpoint="latestVideos" /> */}
+          <IframeRenderer endpoint="latestVideos" />
         </div>
         <Card heading="User Statistics" className="outlet-content-card-5">
           <Chart

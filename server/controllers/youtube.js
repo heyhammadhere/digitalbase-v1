@@ -80,7 +80,16 @@ const latestVideos = async (req, res) => {
       order: "date",
     });
 
-    res.send(latestVideo.data.items.splice(0, 3));
+    const testing = latestVideo.data.items.splice(0, 3).map((video) => {
+      return video.id.videoId;
+    });
+
+    const hello = await populerVideos.videos.list({
+      part: "statistics,snippet",
+      id: testing.toString(),
+    });
+
+    res.send(hello.data);
   } catch (error) {
     console.log(error);
   }
