@@ -10,7 +10,6 @@ const getChannelData = async (req, res) => {
     version: "v2",
     auth: oAuth2Client,
   });
-
   try {
     const reports = await youtubeAnalytics.reports.query({
       endDate: "2022-09-01",
@@ -21,11 +20,7 @@ const getChannelData = async (req, res) => {
     });
 
     res.send(reports.data);
-  } catch (error) {
-    console.log(error);
-  }
-
-  console.log("Authed successfully");
+  } catch (error) {}
 };
 
 const topVideo = async (req, res) => {
