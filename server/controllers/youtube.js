@@ -21,7 +21,9 @@ const getChannelData = async (req, res) => {
     });
 
     res.send(reports.data);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 
   console.log("Authed successfully");
 };
@@ -35,23 +37,57 @@ const topVideo = async (req, res) => {
     auth: oAuth2Client,
   });
 
-  const channelDetails = await populerVideos.channels.list({
-    part: "snippet,statistics",
-    maxResults: 50,
-    mine: true,
+  try {
+    const channelDetails = await populerVideos.channels.list({
+      part: "snippet,statistics,contentDetails",
+      maxResults: 50,
+      mine: true,
+    });
+
+    const topRankedVideo = await populerVideos.search.list({
+      part: "snippet",
+      maxResults: 50,
+      channelId: channelDetails.data.items[0].id,
+      order: "viewCount",
+    });
+
+    res.send([topRankedVideo.data.items[0]]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const latestVideos = async (req, res) => {
+  const tokens = req.body.tokens;
+  oAuth2Client.setCredentials(tokens);
+
+  const populerVideos = google.youtube({
+    version: "v3",
+    auth: oAuth2Client,
   });
 
-  const latestVideos = await populerVideos.search.list({
-    part: "snippet",
-    maxResults: 50,
-    channelId: channelDetails.data.items[0].id,
-    order: "viewCount",
-  });
+  try {
+    const channelDetails = await populerVideos.channels.list({
+      part: "snippet,statistics,contentDetails",
+      maxResults: 50,
+      mine: true,
+    });
 
-  res.send(latestVideos.data.items[0]);
+    const latestVideo = await populerVideos.search.list({
+      part: "snippet",
+      maxResults: 50,
+      channelId: channelDetails.data.items[0].id,
+      order: "date",
+    });
+
+    res.send(latestVideo.data.items.splice(0, 3));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
   getChannelData,
   topVideo,
+  latestVideos,
 };
