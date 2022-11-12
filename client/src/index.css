@@ -68,23 +68,20 @@ body {
   margin-left: 1rem;
 }
 
-.navbar-container ul li {
+.navbar-container .navbar-link {
   color: var(--clrNavbarText);
   margin-top: 0.25rem;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   font-weight: 400;
   font-size: 16px;
-}
-
-.navbar-container ul li.active {
-  color: var(--clrPrimaryDark);
-  background: var(--clrNavbarBg);
-}
-
-.navbar-link {
   display: flex;
   align-items: center;
+}
+
+.active {
+  color: var(--clrPrimaryDark);
+  background: var(--clrNavbarBg);
 }
 
 .navbar-link:hover {

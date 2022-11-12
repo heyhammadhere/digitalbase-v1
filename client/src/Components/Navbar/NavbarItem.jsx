@@ -1,11 +1,15 @@
+import { NavLink } from "react-router-dom";
 import Icon from "../Icon";
 
-const NavbarItem = ({ iconSrc = "", text = "", classes = "", ...rest }) => {
+const NavbarItem = ({ path, text, src }) => {
   return (
-    <li className={`navbar-link ${classes}`} {...rest}>
-      <Icon src={iconSrc} margin="0rem 1rem 0rem 0rem" />
+    <NavLink
+      to={path}
+      className={({ isActive }) => `navbar-link ${isActive && "active"}`}
+    >
+      <Icon src={src} margin="0rem 1rem 0rem 0rem" />
       <span>{text}</span>
-    </li>
+    </NavLink>
   );
 };
 
