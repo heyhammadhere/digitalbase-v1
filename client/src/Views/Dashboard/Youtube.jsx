@@ -8,36 +8,64 @@ import Thumbnail from "../../Components/Thumbnail";
 import Icon from "../../Components/Icon";
 import calendar from "../../Assets/icons/calendar.svg";
 import collapse from "../../Assets/icons/collapse.svg";
-import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
 import { fetchChannelData, fetchChannelVideos } from "../../Services/dashboard";
 
 const Youtube = () => {
   const [user] = useContext(AuthContext);
   const [channelData, setChannelData] = useState({});
-  const [channelVideos, setChannelVideos] = useState({});
+  const [thumbnails, setThumbnails] = useState([]);
+  const [lastVideos, setLastVideos] = useState([]);
+  const [topKeywords, setTopKeywords] = useState([]);
+  const [topVideo, setTopVideo] = useState({});
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     handleFetchChannelData();
     handleFetchChannelVideos();
   }, []);
   const handleFetchChannelData = async () => {
+    setLoading(true);
     try {
-      const { status, data } = await fetchChannelData(user.tokena);
+      const { status, data } = await fetchChannelData(user.token);
       if (!status === 200) return toast("No Channel Data Found", "error");
-      setChannelData(data);
+      const { columnHeaders, rows } = data;
+      const _channelData = columnHeaders
+        .map(({ name }) => name)
+        .map((key, index) => ({ [key]: rows.map((row) => row[index]) }))
+        .reduce(
+          (prev, curr) => ({
+            ...prev,
+            ...curr,
+          }),
+          {}
+        );
+      setChannelData(_channelData);
     } catch (error) {
       toast("Something Went Wrong", "error");
     }
+    setLoading(false);
   };
   const handleFetchChannelVideos = async () => {
+    setLoading(true);
     try {
       const { status, data } = await fetchChannelVideos(user.token);
       if (!status === 200) return toast("No Channel Videos Found", "error");
-      setChannelVideos(data);
+      const {
+        bestThumbnails,
+        latestVideos,
+        mostViewedVideo,
+        topThreeKeywords,
+      } = data;
+      setThumbnails(bestThumbnails);
+      setLastVideos(latestVideos);
+      setTopVideo(mostViewedVideo);
+      setTopKeywords(topThreeKeywords);
     } catch (error) {
       toast("Something Went Wrong", "error");
     }
+    setLoading(false);
   };
+  console.log(channelData);
   return (
     <>
       <div className="youtube-header">
@@ -51,29 +79,37 @@ const Youtube = () => {
         </div>
       </div>
       <div className="youtube-content">
-        <Card
-          className="youtube-content-card-1"
-          heading="Subscribers"
-          previous={"136"}
-          direction="up"
-        />
+        {loading ? (
+          "Loading"
+        ) : (
+          <Card
+            className="youtube-content-card-1"
+            heading="Subscribers"
+            direction="up"
+            stats={(() => {
+              const sum = (prev, curr) => prev + curr;
+              const gained = channelData?.subscribersGained.reduce(sum, 0);
+              const lost = channelData?.subscribersGained.reduce(sum, 0);
+              return gained >= lost ? gained : lost;
+            })()}
+          />
+        )}
         <Card
           className="youtube-content-card-2"
           heading="Views"
-          previous={"241.1K"}
           direction="up"
+          stats=""
         />
         <Card
           className="youtube-content-card-3"
           heading="Revenue"
-          data={"$379900"}
-          previous={"255000"}
           direction="up"
+          stats=""
         />
         <div className="youtube-content-card-4">
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
-            <IframeRenderer endpoint="latestVideos" />
+            <IframeRenderer videos={lastVideos} />
           </div>
         </div>
         <Card heading="User Statistics" className="youtube-content-card-5">
@@ -130,24 +166,21 @@ const Youtube = () => {
           action="Details"
           className="youtube-content-card-6"
         >
-          <Keyword keywords={["Stefania", "Top", "Popular"]} />
+          <Keyword keywords={topKeywords} />
         </Card>
         <Card
           heading="Top Video"
           action="Details"
           className="youtube-content-card-7"
         >
-          <IframeRenderer endpoint="topVideo" />
+          {loading ? (
+            "Loading..."
+          ) : (
+            <IframeRenderer videos={[topVideo ? topVideo : {}]} />
+          )}
         </Card>
         <Card heading="Best Thumbnails" className="youtube-content-card-8">
-          <Thumbnail
-            thumbnails={[
-              { img: thumbnail, title: "Who Cares", views: "14.6K" },
-              { img: thumbnail, title: "Who Cares", views: "14.6K" },
-              { img: thumbnail, title: "Who Cares", views: "14.6K" },
-              { img: thumbnail, title: "Who Cares", views: "14.6K" },
-            ]}
-          />
+          {loading ? "Loading..." : <Thumbnail thumbnails={thumbnails} />}
         </Card>
       </div>
     </>

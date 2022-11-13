@@ -1,10 +1,10 @@
 const Thumbnail = ({ thumbnails = [] }) => {
-  return thumbnails.map(({ img, title, views }, index) => (
+  return thumbnails.map(({ thumbnails, title, likes }, index) => (
     <div key={index} className="thumbnail">
-      <img className="thumbnail-img" src={img} alt="Thumbnail" />
+      <img className="thumbnail-img" src={thumbnails} alt="Thumbnail" />
       <div>
         <p className="thumbnail-title">{title}</p>
-        <small className="thumbnail-views">{views} Likes</small>
+        <small className="thumbnail-views">{likes} Likes</small>
       </div>
     </div>
   ));
