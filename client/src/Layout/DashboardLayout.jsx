@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import Header from "../Components/Header";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
+
 const DashboardLayout = () => {
   const [user] = useContext(AuthContext);
   return (
