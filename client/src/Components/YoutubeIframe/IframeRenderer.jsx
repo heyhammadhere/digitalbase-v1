@@ -29,9 +29,9 @@ const IframeRenderer = ({ endpoint }) => {
       {Array.isArray(videoData)
         ? videoData?.map((video) => (
             <YoutubeIframe
-              videoId={video.id.videoId}
-              videoTitle={video.snippet.title}
-              channelName={video.snippet.channelTitle}
+              videoId={video.videoId}
+              videoTitle={video.videoTitle}
+              channelName={video.channelTitle}
             />
           ))
         : null}

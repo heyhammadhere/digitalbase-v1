@@ -10,21 +10,20 @@ import calendar from "../../Assets/icons/calendar.svg";
 import collapse from "../../Assets/icons/collapse.svg";
 import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
-const API = axios.create({
-  baseURL: "http://localhost:5500",
-  validateStatus: () => {
-    return true;
-  },
-});
 
 const Youtube = () => {
   const [user] = useContext(AuthContext);
   const [channelData, setChannelData] = useState([]);
   useEffect(() => {
     (async () => {
-      const { status, data } = await API.post("/", user);
-      const { data: src } = data;
-      const { columnHeaders, rows } = src;
+      const { data } = await axios.post(
+        "http://localhost:5500/youtube/channelData",
+        {
+          tokens: user.token,
+          matrics: "views",
+        }
+      );
+      setChannelData(data);
     })();
   }, []);
   const viewCard = (data, cb) => {
