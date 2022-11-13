@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Logout = () => {
@@ -7,7 +8,7 @@ const Logout = () => {
     localStorage.clear();
     setUser({});
   }, []);
-  return <div>Logout</div>;
+  return null;
 };
 
 export default Logout;

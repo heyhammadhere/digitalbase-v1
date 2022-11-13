@@ -1,7 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthProvider";
 import Card from "../../Components/Card";
 import Chart from "../../Components/Chart";
@@ -61,19 +59,19 @@ const Youtube = () => {
   };
   return (
     <>
-      <div className="outlet-header">
+      <div className="youtube-header">
         <div>
-          <h1 className="outlet-header-title">Overview</h1>
+          <h1 className="youtube-header-title">Overview</h1>
         </div>
-        <div className="outlet-header-filter">
+        <div className="youtube-header-filter">
           <Icon src={calendar} margin="0rem 1rem 0rem 0rem" />
           <span>Last 30 Days</span>
           <Icon src={collapse} size={15} margin="0rem 0rem 0rem 1rem" />
         </div>
       </div>
-      <div className="outlet-content">
+      <div className="youtube-content">
         <Card
-          className="outlet-content-card-1"
+          className="youtube-content-card-1"
           heading="Subscribers"
           previous={"136"}
           direction="up"
@@ -81,7 +79,7 @@ const Youtube = () => {
           dataCallback={subscriberCard}
         />
         <Card
-          className="outlet-content-card-1"
+          className="youtube-content-card-1"
           heading="Views"
           previous={"241.1K"}
           direction="up"
@@ -89,19 +87,19 @@ const Youtube = () => {
           dataCallback={viewCard}
         />
         <Card
-          className="outlet-content-card-1"
+          className="youtube-content-card-1"
           heading="Revenue"
           data={"$379900"}
           previous={"255000"}
           direction="up"
         />
-        <div className="outlet-content-card-4">
+        <div className="youtube-content-card-4">
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
             <IframeRenderer endpoint="latestVideos" />
           </div>
         </div>
-        <Card heading="User Statistics" className="outlet-content-card-5">
+        <Card heading="User Statistics" className="youtube-content-card-5">
           <Chart
             options={{
               chart: {
@@ -153,18 +151,18 @@ const Youtube = () => {
         <Card
           heading="Top 3 Keywords"
           action="Details"
-          className="outlet-content-card-6"
+          className="youtube-content-card-6"
         >
           <Keyword keywords={["Stefania", "Top", "Popular"]} />
         </Card>
         <Card
           heading="Top Video"
           action="Details"
-          className="outlet-content-card-7"
+          className="youtube-content-card-7"
         >
           <IframeRenderer endpoint="topVideo" />
         </Card>
-        <Card heading="Best Thumbnails" className="outlet-content-card-8">
+        <Card heading="Best Thumbnails" className="youtube-content-card-8">
           <Thumbnail
             thumbnails={[
               { img: thumbnail, title: "Who Cares", views: "14.6K" },

@@ -94,14 +94,14 @@ body {
   border-radius: 0.5rem;
 }
 
-.outlet-header {
+.youtube-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem 2rem 0rem 2rem;
 }
 
-.outlet-header-title {
+.youtube-header-title {
   font-weight: 700;
   font-size: 34px;
   background: linear-gradient(277.65deg, #e0d8ff 28.22%, #9d8cfe 92.13%);
@@ -110,7 +110,7 @@ body {
   background-clip: text;
 }
 
-.outlet-header-filter {
+.youtube-header-filter {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -120,62 +120,62 @@ body {
   transition: 100ms all ease;
 }
 
-.outlet-header-filter:active {
+.youtube-header-filter:active {
   transform: scale(95%);
 }
 
-.outlet-header-filter span {
+.youtube-header-filter span {
   color: #b6b2cc;
   font-weight: 400;
   font-size: 14px;
 }
 
-.outlet-content {
+.youtube-content {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(4, 1fr);
   padding: 2rem;
 }
 
-.outlet-content-card-1,
-.outlet-content-card-2,
-.outlet-content-card-3,
-.outlet-content-card-4,
-.outlet-content-card-5,
-.outlet-content-card-6,
-.outlet-content-card-7,
-.outlet-content-card-8 {
+.youtube-content-card-1,
+.youtube-content-card-2,
+.youtube-content-card-3,
+.youtube-content-card-4,
+.youtube-content-card-5,
+.youtube-content-card-6,
+.youtube-content-card-7,
+.youtube-content-card-8 {
   background: var(--bgPrimaryLight);
   padding: 1rem;
   border-radius: 0.5rem;
 }
 
-.outlet-content-card-1,
-.outlet-content-card-2,
-.outlet-content-card-3 {
+.youtube-content-card-1,
+.youtube-content-card-2,
+.youtube-content-card-3 {
   grid-column: span 1;
 }
 
-.outlet-content-card-4 {
+.youtube-content-card-4 {
   grid-column: 4;
   grid-row: 1 / 4;
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.outlet-content-card-5 {
+.youtube-content-card-5 {
   grid-column: span 2;
 }
 
-.outlet-content-card-6 {
+.youtube-content-card-6 {
   grid-column: span 1;
 }
 
-.outlet-content-card-7 {
+.youtube-content-card-7 {
   grid-column: span 2;
 }
 
-.outlet-content-card-8 {
+.youtube-content-card-8 {
   grid-column: span 1;
 }
 
@@ -382,11 +382,92 @@ body {
   display: none;
 }
 
-.login {
-  display: grid;
+.login-container {
   min-height: 100vh;
+  display: grid;
   place-items: center;
+  padding: 1rem;
 }
+
+.login-card {
+  max-width: 350px;
+  background: var(--bgPrimaryMain);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login-title span {
+  text-decoration: underline;
+  line-height: 2.5rem;
+}
+
+.login-btn {
+  width: 100%;
+  color: var(--clrPrimaryMain);
+  background: var(--bgPrimaryLight);
+  font-weight: 500;
+  font-size: 18px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-btn:hover {
+  background: #2b2948;
+}
+
+/* SEO Starts */
+
+.seo {
+  padding: 2rem;
+}
+
+/* SEO Ends */
+
+/* MusicEnginer Starts */
+
+.music-engine {
+  padding: 2rem;
+}
+
+/* MusicEnginer Ends */
+
+/* Payments Starts */
+
+.payments {
+  padding: 2rem;
+}
+
+/* Payments Ends */
+
+/* Settings Starts */
+
+.settings {
+  padding: 2rem;
+}
+
+/* Settings Ends */
+
+/* Profile Starts */
+
+.profile {
+  padding: 2rem;
+}
+
+/* Profile Ends */
 
 @media screen and (max-width: 1024px) {
   .dashboard {
@@ -438,19 +519,19 @@ body {
   .header-search {
     width: 100%;
   }
-  .outlet-content {
+  .youtube-content {
     display: block;
     grid-template-columns: 1fr;
     padding: 2rem;
   }
-  .outlet-content-card-1,
-  .outlet-content-card-2,
-  .outlet-content-card-3,
-  .outlet-content-card-4,
-  .outlet-content-card-5,
-  .outlet-content-card-6,
-  .outlet-content-card-7,
-  .outlet-content-card-8 {
+  .youtube-content-card-1,
+  .youtube-content-card-2,
+  .youtube-content-card-3,
+  .youtube-content-card-4,
+  .youtube-content-card-5,
+  .youtube-content-card-6,
+  .youtube-content-card-7,
+  .youtube-content-card-8 {
     margin: 0.5rem 0rem;
   }
 }
@@ -459,11 +540,11 @@ body {
   .header {
     padding: 1rem;
   }
-  .outlet-header {
+  .youtube-header {
     display: flex;
     flex-direction: column;
   }
-  .outlet-content {
+  .youtube-content {
     padding: 1rem;
   }
 }
