@@ -7,10 +7,12 @@ import { gapi } from "gapi-script";
 const Login = () => {
   const [user, setUser] = useContext(AuthContext);
   const handleOnSuccess = useCallback(({ profileObj, tokenObj }) => {
-    setUser({
+    const user = {
       profile: profileObj,
       token: tokenObj,
-    });
+    };
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
   }, []);
 
   useEffect(() => {
@@ -20,7 +22,6 @@ const Login = () => {
         scope: SCOPES.join(" "),
       });
     }
-
     gapi.load("client:auth2", start);
   }, []);
 

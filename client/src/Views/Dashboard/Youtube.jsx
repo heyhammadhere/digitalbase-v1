@@ -17,44 +17,6 @@ const Youtube = () => {
   const [user] = useContext(AuthContext);
   const [channelData, setChannelData] = useState([]);
   useEffect(() => {
-    toast("Hello Sarwari", {
-      type: "warning",
-      closeButton: false,
-      style: {
-        color: "#b6b2cc",
-        background: "#24223b",
-        fontWeight: 500,
-      },
-    });
-    toast("Hello Sarwari", {
-      type: "success",
-      closeButton: false,
-      style: {
-        color: "#b6b2cc",
-        background: "#24223b",
-        fontWeight: 500,
-      },
-    });
-    toast("Hello Sarwari", {
-      type: "error",
-      closeButton: false,
-      style: {
-        color: "#b6b2cc",
-        background: "#24223b",
-        fontWeight: 500,
-      },
-    });
-    toast("Hello Sarwari", {
-      type: "info",
-      closeButton: false,
-      style: {
-        color: "#b6b2cc",
-        background: "#24223b",
-        fontWeight: 500,
-      },
-    });
-  }, []);
-  useEffect(() => {
     (async () => {
       const { data } = await axios.post(
         "http://localhost:5500/youtube/channelData",
