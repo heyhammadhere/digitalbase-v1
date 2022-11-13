@@ -1,11 +1,12 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./Context/AuthProvider";
-import { Toast } from "./Components/Toast";
 import Routes from "./Routes";
 
 const App = () => {
   return (
     <AuthProvider>
-      <Toast />
+      <ToastContainer />
       <Routes />
     </AuthProvider>
   );

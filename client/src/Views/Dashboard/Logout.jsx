@@ -8,7 +8,7 @@ const Logout = () => {
     localStorage.clear();
     setUser({});
   }, []);
-  return null;
+  return <Navigate to="/" />;
 };
 
 export default Logout;

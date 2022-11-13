@@ -37,6 +37,7 @@ const Routes = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="logout" element={<Logout />} />
         </Route>
+        <Route path="*" element="404 Not Found" />
       </RoutesWrapper>
     </BrowserRouter>
   );

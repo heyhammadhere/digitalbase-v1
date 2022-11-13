@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 import Card from "../../Components/Card";
 import Chart from "../../Components/Chart";
@@ -10,52 +10,35 @@ import calendar from "../../Assets/icons/calendar.svg";
 import collapse from "../../Assets/icons/collapse.svg";
 import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
+import { fetchChannelData, fetchChannelVideos } from "../../Services/dashboard";
 
 const Youtube = () => {
   const [user] = useContext(AuthContext);
-  const [channelData, setChannelData] = useState([]);
+  const [channelData, setChannelData] = useState({});
+  const [channelVideos, setChannelVideos] = useState({});
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.post(
-        "http://localhost:5500/youtube/channelData",
-        {
-          tokens: user.token,
-          matrics: "views",
-        }
-      );
-      setChannelData(data);
-    })();
+    handleFetchChannelData();
+    handleFetchChannelVideos();
   }, []);
-  const viewCard = (data, cb) => {
-    const rows = data?.rows?.map((row) => {
-      return row[1];
-    });
-    const views = rows?.reduce((current, previous) => current + previous);
-    return cb(`+${views}`);
-  };
-
-  const subscriberCard = (data, cb) => {
-    let state = true;
-    const subsGainedRow = data?.rows?.map((row) => {
-      return row[1];
-    });
-    const subsLostRow = data?.rows?.map((row) => {
-      return row[2];
-    });
-
-    const subsGained = subsGainedRow?.reduce(
-      (current, previous) => current + previous
-    );
-    const subsLost = subsLostRow?.reduce(
-      (current, previous) => current + previous
-    );
-
-    if (subsGained >= subsLost) {
-      state = true;
-    } else {
-      state = false;
+  const handleFetchChannelData = async () => {
+    try {
+      const { status, data } = await fetchChannelData(user.token);
+      if (!status === 200) {
+      }
+      setChannelData(data);
+    } catch (error) {
+      toast("Something Went Wrong");
     }
-    return cb(state ? `+${subsGained}` : `-${subsLost}`);
+  };
+  const handleFetchChannelVideos = async () => {
+    try {
+      const { status, data } = await fetchChannelVideos(user.token);
+      if (!status === 200) {
+      }
+      setChannelVideos(data);
+    } catch (error) {
+      toast("Something Went Wrong");
+    }
   };
   return (
     <>
@@ -76,7 +59,7 @@ const Youtube = () => {
           previous={"136"}
           direction="up"
           matrics="subscribersGained,subscribersLost"
-          dataCallback={subscriberCard}
+          dataCallback={() => {}}
         />
         <Card
           className="youtube-content-card-1"
@@ -84,7 +67,7 @@ const Youtube = () => {
           previous={"241.1K"}
           direction="up"
           matrics="views,annotationClickThroughRate"
-          dataCallback={viewCard}
+          dataCallback={() => {}}
         />
         <Card
           className="youtube-content-card-1"

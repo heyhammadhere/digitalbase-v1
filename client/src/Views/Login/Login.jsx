@@ -1,10 +1,9 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { AuthContext } from "../../Context/AuthProvider";
 import Icon from "../../Components/Icon";
 import { SCOPES } from "../../constants";
-import { gapi } from "gapi-script";
 import logo from "../../Assets/logos/digital-base.svg";
 import google from "../../Assets/icons/google.svg";
 const Login = () => {
@@ -17,21 +16,10 @@ const Login = () => {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   }, []);
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        scope: SCOPES.join(" "),
-      });
-    }
-    gapi.load("client:auth2", start);
-  }, []);
-
   const handleOnFailure = useCallback((error) => {
     console.log(error);
   }, []);
-  return true ? (
+  return Object.keys(user).length ? (
     <Navigate to="/" />
   ) : (
     <section className="login-container">

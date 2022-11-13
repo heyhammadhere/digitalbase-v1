@@ -1,3 +1,5 @@
+const BASE_URL = "/api/v1";
+
 const METRICS = [
   //
   "annotationImpressions",
@@ -38,5 +40,6 @@ const METRICS = [
 ];
 
 module.exports = {
+  BASE_URL,
   METRICS,
 };

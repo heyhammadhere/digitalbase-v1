@@ -5,7 +5,6 @@ const oAuth2Client = new google.auth.OAuth2();
 const getChannelData = async (req, res) => {
   try {
     const tokens = req.body.tokens;
-    const matrics = req.body.matrics;
     oAuth2Client.setCredentials(tokens);
     const youtubeAnalytics = google.youtubeAnalytics({
       version: "v2",
@@ -14,7 +13,7 @@ const getChannelData = async (req, res) => {
     const reports = await youtubeAnalytics.reports.query({
       endDate: "2022-09-01",
       ids: "channel==MINE",
-      metrics: matrics,
+      metrics: "views,subscribersGained,subscribersLost,likes",
       startDate: "2011-08-01",
       dimensions: "month",
     });
