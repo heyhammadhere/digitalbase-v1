@@ -12,12 +12,6 @@ import calendar from "../../Assets/icons/calendar.svg";
 import collapse from "../../Assets/icons/collapse.svg";
 import thumbnail from "../../Assets/images/thumbnail.jpg";
 import IframeRenderer from "../../Components/YoutubeIframe/IframeRenderer";
-const API = axios.create({
-  baseURL: "http://localhost:5500",
-  validateStatus: () => {
-    return true;
-  },
-});
 
 const Youtube = () => {
   const [user] = useContext(AuthContext);
@@ -62,9 +56,14 @@ const Youtube = () => {
   }, []);
   useEffect(() => {
     (async () => {
-      const { status, data } = await API.post("/", user);
-      const { data: src } = data;
-      const { columnHeaders, rows } = src;
+      const { data } = await axios.post(
+        "http://localhost:5500/youtube/channelData",
+        {
+          tokens: user.token,
+          matrics: "views",
+        }
+      );
+      setChannelData(data);
     })();
   }, []);
   const viewCard = (data, cb) => {
@@ -137,6 +136,7 @@ const Youtube = () => {
         <div className="outlet-content-card-4">
           <div>
             <p className="card-header">Last 3 Videos With Views</p>
+            <IframeRenderer endpoint="latestVideos" />
           </div>
         </div>
         <Card heading="User Statistics" className="outlet-content-card-5">

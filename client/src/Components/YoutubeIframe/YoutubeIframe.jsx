@@ -22,7 +22,6 @@ const YoutubeIframe = ({
         {videoTitle}
         <span>- {channelName} </span>
       </p>
-      <p className="youtube-video-description">{views} Views</p>
     </div>
   );
 };
