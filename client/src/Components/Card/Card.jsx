@@ -17,26 +17,7 @@ const Card = ({
   const [channelData, setChannelData] = useState([]);
   const [data, setData] = useState("");
 
-  useEffect(() => {
-    const fetchChannel = async () => {
-      const response = JSON.parse(localStorage.getItem("user"));
-
-      const { data } = await axios.post(
-        "http://localhost:5500/youtube/channelData",
-        {
-          tokens: response.token,
-          matrics: matrics,
-        }
-      );
-      dataCallback(data, (res) => {
-        setData(res);
-      });
-      setChannelData(data);
-    };
-    if (matrics) {
-      fetchChannel();
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div {...rest}>

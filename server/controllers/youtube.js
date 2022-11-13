@@ -14,8 +14,8 @@ const getChannelData = async (req, res) => {
       endDate: "2022-09-01",
       ids: "channel==MINE",
       metrics: "views,subscribersGained,subscribersLost,likes",
-      startDate: "2011-08-01",
-      dimensions: "month",
+      startDate: "2022-08-01",
+      dimensions: "day",
     });
 
     if (Object.keys(reports?.data).length) {
