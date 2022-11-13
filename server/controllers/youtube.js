@@ -19,55 +19,57 @@ const getChannelData = async (req, res) => {
       dimensions: "month",
     });
 
-    res.send(reports.data);
+    if (Object.keys(reports?.data).length) {
+      res.status(200).send(reports.data);
+    } else {
+      res.status(500).send({ message: "Reports Not found" });
+    }
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
-const topVideo = async (req, res) => {
+const channelVideoData = async (req, res) => {
   try {
     const tokens = req.body.tokens;
     oAuth2Client.setCredentials(tokens);
 
-    const populerVideos = google.youtube({
+    // Youtube Data Api Instance
+    const youtubeDataInstance = google.youtube({
       version: "v3",
       auth: oAuth2Client,
     });
 
-    const channelDetails = await populerVideos.channels.list({
+    // Fetching User's Channel Details
+    const channelDetails = await youtubeDataInstance.channels.list({
       part: "snippet,statistics,contentDetails",
       maxResults: 50,
       mine: true,
     });
 
-    const playList = await populerVideos.playlistItems.list({
+    // Got the PlayList Id from channelDetails to fetch the latest uploaded videos
+    const playList = await youtubeDataInstance.playlistItems.list({
       part: "snippet",
       playlistId:
         channelDetails.data.items[0].contentDetails.relatedPlaylists.uploads,
       maxResults: 50,
     });
 
-    // const finalData = playList.data.items.splice(0, 3).map((video) => {
-    //   return {
-    //     videoId: video.snippet.resourceId.videoId,
-    //     channelTitle: video.snippet.channelTitle,
-    //     videoTitle: video.snippet.title,
-    //   };
-    // });
-
+    // Getting the IDs of all the videos returned from the playList and Storing them in an Array
     const videosArray = playList.data.items.map((video) => {
       return video.snippet.resourceId.videoId;
     });
 
-    const response = await populerVideos.videos.list({
+    // Getting the video List of Stored IDs
+    const mostViewedVideo = await youtubeDataInstance.videos.list({
       part: "snippet,statistics",
       maxResults: 50,
       id: videosArray.join(","),
       order: "viewCount",
     });
 
-    const sortedData = response.data.items.sort((a, b) => {
+    // Sorting the video Array based on ViewCount
+    const sortedTopVideo = mostViewedVideo.data.items.sort((a, b) => {
       if (Number(a.statistics.viewCount) > Number(b.statistics.viewCount))
         return -1;
       if (Number(a.statistics.viewCount) < Number(b.statistics.viewCount))
@@ -75,36 +77,8 @@ const topVideo = async (req, res) => {
       return 0;
     });
 
-    res.send(sortedData);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const latestVideos = async (req, res) => {
-  try {
-    const tokens = req.body.tokens;
-    oAuth2Client.setCredentials(tokens);
-
-    const populerVideos = google.youtube({
-      version: "v3",
-      auth: oAuth2Client,
-    });
-
-    const channelDetails = await populerVideos.channels.list({
-      part: "snippet,statistics,contentDetails",
-      maxResults: 50,
-      mine: true,
-    });
-
-    const playList = await populerVideos.playlistItems.list({
-      part: "snippet",
-      playlistId:
-        channelDetails.data.items[0].contentDetails.relatedPlaylists.uploads,
-      maxResults: 50,
-    });
-
-    const finalData = playList.data.items.splice(0, 3).map((video) => {
+    // Storing the three latest videos uploaded in topThreeVideos
+    const topThreeVideos = playList.data.items.splice(0, 3).map((video) => {
       return {
         videoId: video.snippet.resourceId.videoId,
         channelTitle: video.snippet.channelTitle,
@@ -112,43 +86,14 @@ const latestVideos = async (req, res) => {
       };
     });
 
-    res.send(finalData);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const bestThumbnails = async (req, res) => {
-  try {
-    const tokens = req.body.tokens;
-    oAuth2Client.setCredentials(tokens);
-
-    const populerVideos = google.youtube({
-      version: "v3",
-      auth: oAuth2Client,
-    });
-
-    const channelDetails = await populerVideos.channels.list({
-      part: "snippet,statistics,contentDetails",
-      maxResults: 50,
-      mine: true,
-    });
-
-    const playList = await populerVideos.playlistItems.list({
-      part: "snippet",
-      playlistId:
-        channelDetails.data.items[0].contentDetails.relatedPlaylists.uploads,
-      maxResults: 50,
-    });
-
-    const videosArray = playList.data.items.map((video) => {
+    const videoThumbnails = playList.data.items.map((video) => {
       return video.snippet.resourceId.videoId;
     });
 
-    const response = await populerVideos.videos.list({
+    const response = await youtubeDataInstance.videos.list({
       part: "snippet,statistics",
       maxResults: 50,
-      id: videosArray.join(","),
+      id: videoThumbnails.join(","),
       order: "viewCount",
     });
 
@@ -168,16 +113,33 @@ const bestThumbnails = async (req, res) => {
         thumbnails: video.snippet.thumbnails.high.url,
       };
     });
-
-    res.send(thumbnailsData);
+    if (
+      Object.keys(topThreeVideos).length ||
+      Object.keys(sortedTopVideo).length
+    ) {
+      res.status(200).json({
+        latestVideos: topThreeVideos,
+        mostViewedVideo: Object.keys(sortedTopVideo).length
+          ? {
+              videoId: sortedTopVideo[0].id,
+              channelTitle: sortedTopVideo[0].snippet.channelTitle,
+              videoTitle: sortedTopVideo[0].snippet.title,
+              views: sortedTopVideo[0].statistics.viewCount,
+            }
+          : [],
+        bestThumbnails: thumbnailsData.splice(0, 4),
+      });
+    } else {
+      res.status(200).send({
+        message: "Video not found",
+      });
+    }
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
 module.exports = {
   getChannelData,
-  topVideo,
-  latestVideos,
-  bestThumbnails,
+  channelVideoData,
 };

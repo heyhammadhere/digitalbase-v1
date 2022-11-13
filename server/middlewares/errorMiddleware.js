@@ -1,5 +1,6 @@
 const routeNotFound = (req, res, next) => {
   const error = new Error(`This is an invalid route ${req.originalUrl}`);
+
   res.status(404);
   next(error);
 };

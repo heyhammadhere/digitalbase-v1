@@ -1,14 +1,7 @@
 const router = require("express").Router();
-const {
-  getChannelData,
-  topVideo,
-  latestVideos,
-  bestThumbnails,
-} = require("../controllers/youtube");
+const { getChannelData, channelVideoData } = require("../controllers/youtube");
 
 router.post("/channelData", getChannelData);
-router.post("/topVideo", topVideo);
-router.post("/latestVideos", latestVideos);
-router.post("/bestThumbnails", bestThumbnails);
+router.post("/videoData", channelVideoData);
 
 module.exports = router;
