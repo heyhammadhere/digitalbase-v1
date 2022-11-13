@@ -113,9 +113,11 @@ const channelVideoData = async (req, res) => {
         thumbnails: video.snippet.thumbnails.high.url,
       };
     });
+
     if (
       Object.keys(topThreeVideos).length ||
-      Object.keys(sortedTopVideo).length
+      Object.keys(sortedTopVideo).length ||
+      Object.keys(thumbnailsData).length
     ) {
       res.status(200).json({
         latestVideos: topThreeVideos,
@@ -128,6 +130,9 @@ const channelVideoData = async (req, res) => {
             }
           : [],
         bestThumbnails: thumbnailsData.splice(0, 4),
+        topThreeKeywords: sortedTopVideo[0]?.snippet?.tags
+          ? sortedTopVideo[0].snippet?.tags?.splice(0, 3)
+          : [],
       });
     } else {
       res.status(200).send({
