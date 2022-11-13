@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { toast } from "react-toastify";
+import { toast } from "../../Components/Toast";
 import { AuthContext } from "../../Context/AuthProvider";
 import Card from "../../Components/Card";
 import Chart from "../../Components/Chart";
@@ -22,22 +22,20 @@ const Youtube = () => {
   }, []);
   const handleFetchChannelData = async () => {
     try {
-      const { status, data } = await fetchChannelData(user.token);
-      if (!status === 200) {
-      }
+      const { status, data } = await fetchChannelData(user.tokena);
+      if (!status === 200) return toast("No Channel Data Found", "error");
       setChannelData(data);
     } catch (error) {
-      toast("Something Went Wrong");
+      toast("Something Went Wrong", "error");
     }
   };
   const handleFetchChannelVideos = async () => {
     try {
       const { status, data } = await fetchChannelVideos(user.token);
-      if (!status === 200) {
-      }
+      if (!status === 200) return toast("No Channel Videos Found", "error");
       setChannelVideos(data);
     } catch (error) {
-      toast("Something Went Wrong");
+      toast("Something Went Wrong", "error");
     }
   };
   return (
@@ -53,24 +51,20 @@ const Youtube = () => {
         </div>
       </div>
       <div className="youtube-content">
-        {/* <Card
+        <Card
           className="youtube-content-card-1"
           heading="Subscribers"
           previous={"136"}
           direction="up"
-          matrics="subscribersGained,subscribersLost"
-          dataCallback={() => {}}
         />
         <Card
-          className="youtube-content-card-1"
+          className="youtube-content-card-2"
           heading="Views"
           previous={"241.1K"}
           direction="up"
-          matrics="views,annotationClickThroughRate"
-          dataCallback={() => {}}
-        /> */}
+        />
         <Card
-          className="youtube-content-card-1"
+          className="youtube-content-card-3"
           heading="Revenue"
           data={"$379900"}
           previous={"255000"}

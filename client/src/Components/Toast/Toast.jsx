@@ -1,5 +1,4 @@
 import { ToastContainer, toast as toastFn } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const toast = (message = "", type = "") => {
   toastFn(message, {
