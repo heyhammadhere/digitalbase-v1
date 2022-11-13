@@ -20,7 +20,7 @@ const YoutubeIframe = ({
       </div>
       <p className="youtube-video-meta">
         {videoTitle}
-        <span>- {channelName} </span>
+        <span> - {channelName} </span>
       </p>
     </div>
   );

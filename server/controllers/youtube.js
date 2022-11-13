@@ -21,7 +21,7 @@ const getChannelData = async (req, res) => {
     if (Object.keys(reports?.data).length) {
       res.status(200).send(reports.data);
     } else {
-      res.status(500).send({ message: "Reports Not found" });
+      res.status(404).send({ message: "Reports Not found" });
     }
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -134,7 +134,7 @@ const channelVideoData = async (req, res) => {
           : [],
       });
     } else {
-      res.status(200).send({
+      res.status(404).send({
         message: "Video not found",
       });
     }

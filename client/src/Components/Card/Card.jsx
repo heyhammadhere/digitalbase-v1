@@ -2,23 +2,15 @@ import Icon from "../Icon";
 import arrowDown from "../../Assets/icons/arrow-down.svg";
 import arrowUp from "../../Assets/icons/arrow-up.svg";
 import arrowRight from "../../Assets/icons/arrow-right.svg";
-import { useEffect, useState } from "react";
-import axios from "axios";
 const Card = ({
   children,
   heading,
   action,
+  stats,
   previous,
   direction,
-  matrics,
-  dataCallback,
   ...rest
 }) => {
-  const [channelData, setChannelData] = useState([]);
-  const [data, setData] = useState("");
-
-  useEffect(() => {}, []);
-
   return (
     <div {...rest}>
       {heading ? (
@@ -32,10 +24,9 @@ const Card = ({
           ) : null}
         </div>
       ) : null}
-      {data ? (
+      {stats ? (
         <div>
           <p className="card-body">
-            {data}
             {direction ? (
               <Icon
                 src={direction === "up" ? arrowUp : arrowDown}

@@ -355,7 +355,7 @@ body {
 .thumbnail {
   display: grid;
   gap: 1rem;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   border-top: 1px solid #33304f;
   padding: 1rem 0rem;
@@ -370,6 +370,10 @@ body {
   color: var(--clrPrimaryDark);
   font-weight: 600;
   font-size: 16px;
+  max-width: 125px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .thumbnail-views {
@@ -533,6 +537,18 @@ body {
   .youtube-content-card-7,
   .youtube-content-card-8 {
     margin: 0.5rem 0rem;
+  }
+  .thumbnail {
+    grid-template-columns: 1fr 2fr;
+  }
+  .thumbnail-title {
+    color: var(--clrPrimaryDark);
+    font-weight: 600;
+    font-size: 16px;
+    max-width: initial;
+    white-space: initial;
+    text-overflow: initial;
+    overflow: initial;
   }
 }
 
