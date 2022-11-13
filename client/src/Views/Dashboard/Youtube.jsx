@@ -22,7 +22,7 @@ const Youtube = () => {
   }, []);
   const handleFetchChannelData = async () => {
     try {
-      const { status, data } = await fetchChannelData(user.tokena);
+      const { status, data } = await fetchChannelData(user.token);
       if (!status === 200) return toast("No Channel Data Found", "error");
       setChannelData(data);
     } catch (error) {

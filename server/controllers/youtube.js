@@ -128,7 +128,7 @@ const channelVideoData = async (req, res) => {
               views: sortedTopVideo[0].statistics.viewCount,
             }
           : [],
-        bestThumbnails: thumbnailsData.splice(0, 4),
+        bestThumbnails: thumbnailsData.splice(0, 3),
         topThreeKeywords: sortedTopVideo[0]?.snippet?.tags
           ? sortedTopVideo[0].snippet?.tags?.splice(0, 3)
           : [],
