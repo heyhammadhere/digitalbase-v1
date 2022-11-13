@@ -53,7 +53,7 @@ const Youtube = () => {
         </div>
       </div>
       <div className="youtube-content">
-        <Card
+        {/* <Card
           className="youtube-content-card-1"
           heading="Subscribers"
           previous={"136"}
@@ -68,7 +68,7 @@ const Youtube = () => {
           direction="up"
           matrics="views,annotationClickThroughRate"
           dataCallback={() => {}}
-        />
+        /> */}
         <Card
           className="youtube-content-card-1"
           heading="Revenue"

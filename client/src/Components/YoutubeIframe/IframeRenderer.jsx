@@ -9,21 +9,21 @@ import YoutubeIframe from "./YoutubeIframe";
 const IframeRenderer = ({ endpoint }) => {
   const [user] = useContext(AuthContext);
   const [videoData, setVideoData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const video = await axios.post(
-        `http://localhost:5500/youtube/${endpoint}`,
-        {
-          tokens: user.token,
-        }
-      );
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const video = await axios.post(
+  //       `http://localhost:5500/youtube/${endpoint}`,
+  //       {
+  //         tokens: user.token,
+  //       }
+  //     );
 
-      setVideoData(video.data);
-    };
-    if (endpoint) {
-      fetchData();
-    }
-  }, []);
+  //     setVideoData(video.data);
+  //   };
+  //   if (endpoint) {
+  //     fetchData();
+  //   }
+  // }, []);
   return (
     <div>
       {Array.isArray(videoData)
