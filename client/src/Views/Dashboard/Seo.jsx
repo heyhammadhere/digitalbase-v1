@@ -1,7 +1,7 @@
 import React from "react";
 
 const Seo = () => {
-  return <div>Seo</div>;
+  return <section className="seo">SEO</section>;
 };
 
 export default Seo;

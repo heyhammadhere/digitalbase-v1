@@ -1,7 +1,7 @@
 import React from "react";
 
 const MusicEngine = () => {
-  return <div>MusicEngine</div>;
+  return <section className="music-engine">Music Engine</section>;
 };
 
 export default MusicEngine;
