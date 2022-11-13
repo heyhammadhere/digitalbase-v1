@@ -7,12 +7,10 @@ import { SCOPES } from "../../constants";
 const Login = () => {
   const [user, setUser] = useContext(AuthContext);
   const handleOnSuccess = useCallback(({ profileObj, tokenObj }) => {
-    const user = {
+    setUser({
       profile: profileObj,
       token: tokenObj,
-    };
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
+    });
   }, []);
   const handleOnFailure = useCallback((error) => {
     console.log(error);

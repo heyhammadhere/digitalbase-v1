@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthProvider";
 import Card from "../../Components/Card";
 import Chart from "../../Components/Chart";
@@ -20,6 +22,44 @@ const API = axios.create({
 const Youtube = () => {
   const [user] = useContext(AuthContext);
   const [channelData, setChannelData] = useState([]);
+  useEffect(() => {
+    toast("Hello Sarwari", {
+      type: "warning",
+      closeButton: false,
+      style: {
+        color: "#b6b2cc",
+        background: "#24223b",
+        fontWeight: 500,
+      },
+    });
+    toast("Hello Sarwari", {
+      type: "success",
+      closeButton: false,
+      style: {
+        color: "#b6b2cc",
+        background: "#24223b",
+        fontWeight: 500,
+      },
+    });
+    toast("Hello Sarwari", {
+      type: "error",
+      closeButton: false,
+      style: {
+        color: "#b6b2cc",
+        background: "#24223b",
+        fontWeight: 500,
+      },
+    });
+    toast("Hello Sarwari", {
+      type: "info",
+      closeButton: false,
+      style: {
+        color: "#b6b2cc",
+        background: "#24223b",
+        fontWeight: 500,
+      },
+    });
+  }, []);
   useEffect(() => {
     (async () => {
       const { status, data } = await API.post("/", user);
