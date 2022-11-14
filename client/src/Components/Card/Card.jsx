@@ -27,6 +27,7 @@ const Card = ({
       {stats ? (
         <div>
           <p className="card-body">
+            {stats}
             {direction ? (
               <Icon
                 src={direction === "up" ? arrowUp : arrowDown}

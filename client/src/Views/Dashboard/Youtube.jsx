@@ -19,6 +19,7 @@ const Youtube = () => {
   const [topKeywords, setTopKeywords] = useState([]);
   const [topVideo, setTopVideo] = useState({});
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     handleFetchChannelData();
     handleFetchChannelVideos();
@@ -79,26 +80,28 @@ const Youtube = () => {
         </div>
       </div>
       <div className="youtube-content">
-        {loading ? (
-          "Loading"
-        ) : (
-          <Card
-            className="youtube-content-card-1"
-            heading="Subscribers"
-            direction="up"
-            stats={(() => {
-              const sum = (prev, curr) => prev + curr;
-              const gained = channelData?.subscribersGained.reduce(sum, 0);
-              const lost = channelData?.subscribersGained.reduce(sum, 0);
-              return gained >= lost ? gained : lost;
-            })()}
-          />
-        )}
+        <Card
+          className="youtube-content-card-1"
+          heading="Subscribers"
+          direction="up"
+          stats={(() => {
+            const sum = (prev, curr) => prev + curr;
+
+            const gained = channelData?.subscribersGained?.reduce(sum, 0);
+            const lost = channelData?.subscribersLost?.reduce(sum, 0);
+            return gained >= lost ? gained : lost;
+          })()}
+        />
+
         <Card
           className="youtube-content-card-2"
           heading="Views"
           direction="up"
-          stats=""
+          stats={(() => {
+            const sum = (prev, curr) => prev + curr;
+            const views = channelData?.views?.reduce(sum, 0);
+            return views;
+          })()}
         />
         <Card
           className="youtube-content-card-3"
@@ -154,7 +157,7 @@ const Youtube = () => {
                 {
                   name: "Views",
                   data: channelData
-                    ? channelData?.rows?.map((row) => row[1])
+                    ? channelData?.views?.map((view) => view)
                     : [],
                 },
               ],
