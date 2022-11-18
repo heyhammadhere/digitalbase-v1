@@ -159,8 +159,6 @@ body {
 .youtube-content-card-4 {
   grid-column: 4;
   grid-row: 1 / 4;
-  display: grid;
-  grid-template-columns: 1fr;
 }
 
 .youtube-content-card-5 {
