@@ -28,8 +28,6 @@ const Login = () => {
           <img src={logo} alt="" />
         </div>
         <p className="login-title">
-          <span>Welcome To DigitalBase</span>
-          <br />
           Log In Using Your Google Account To Access Your Youtube Channel Data
         </p>
         <GoogleLogin
