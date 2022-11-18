@@ -85,18 +85,7 @@ const channelVideoData = async (req, res) => {
       };
     });
 
-    const videoThumbnails = playList.data.items.map((video) => {
-      return video.snippet.resourceId.videoId;
-    });
-
-    const response = await youtubeDataInstance.videos.list({
-      part: "snippet,statistics",
-      maxResults: 50,
-      id: videoThumbnails.join(","),
-      order: "viewCount",
-    });
-
-    const sortedData = response.data.items.sort((a, b) => {
+    const sortedData = mostViewedVideo.data.items.sort((a, b) => {
       if (Number(a.statistics.viewCount) > Number(b.statistics.viewCount))
         return -1;
       if (Number(a.statistics.viewCount) < Number(b.statistics.viewCount))
