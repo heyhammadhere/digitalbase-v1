@@ -1,7 +1,7 @@
 import CardHeader from "../CardHeader";
 import IframeRenderer from "../YoutubeIframe/IframeRenderer";
 
-const LastVideos = ({ loading, ...rest }) => {
+const LastVideos = ({ loading, data = [], ...rest }) => {
   return (
     <div className="youtube-content-card-4" {...rest}>
       <div>
@@ -11,7 +11,7 @@ const LastVideos = ({ loading, ...rest }) => {
         "Loading..."
       ) : (
         <div>
-          <IframeRenderer videos={[]} />
+          <IframeRenderer videos={data} />
         </div>
       )}
     </div>

@@ -110,6 +110,11 @@ body {
   background-clip: text;
 }
 
+.youtube-header-filter-wrapper {
+  position: relative;
+  z-index: 9;
+}
+
 .youtube-header-filter {
   display: flex;
   align-items: center;
@@ -118,6 +123,7 @@ body {
   border-radius: 0.5rem;
   background: var(--bgPrimaryLight);
   transition: 100ms all ease;
+  z-index: 9;
 }
 
 .youtube-header-filter:active {
@@ -128,6 +134,20 @@ body {
   color: #b6b2cc;
   font-weight: 400;
   font-size: 14px;
+}
+
+.date-range-filter {
+  position: absolute;
+  top: 150%;
+  right: 0;
+  opacity: 0;
+  transition: 250ms all ease-in-out;
+  pointer-events: none;
+}
+
+.date-range-filter.show {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .youtube-content {

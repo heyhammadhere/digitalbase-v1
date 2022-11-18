@@ -1,6 +1,6 @@
 import CardHeader from "../CardHeader";
 
-const TopKeywords = ({ loading, ...rest }) => {
+const TopKeywords = ({ loading, data = [], ...rest }) => {
   return (
     <div className="youtube-content-card-6" {...rest}>
       <div>
@@ -10,7 +10,7 @@ const TopKeywords = ({ loading, ...rest }) => {
         "Loading..."
       ) : (
         <div>
-          {[].map((keyword, index) => (
+          {data.map((keyword, index) => (
             <div key={index} className="keyword">
               <span className="keyword-index">
                 {index < 9 ? `0${++index}` : ++index}

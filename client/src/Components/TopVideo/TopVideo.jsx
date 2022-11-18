@@ -1,7 +1,7 @@
 import ActionButton from "../CardHeader";
 import IframeRenderer from "../YoutubeIframe/IframeRenderer";
 
-const TopVideo = ({ loading, ...rest }) => {
+const TopVideo = ({ loading, data = {}, ...rest }) => {
   return (
     <div className="youtube-content-card-7" {...rest}>
       <div>
@@ -11,7 +11,7 @@ const TopVideo = ({ loading, ...rest }) => {
         "Loading"
       ) : (
         <div>
-          <IframeRenderer videos={[]} />
+          <IframeRenderer videos={[data]} />
         </div>
       )}
     </div>
