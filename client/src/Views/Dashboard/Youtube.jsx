@@ -102,9 +102,9 @@ const Youtube = () => {
         />
         <Card
           className="youtube-content-card-3"
-          heading="Revenue"
+          heading="Likes"
           direction="up"
-          stats=""
+          stats={channelData?.likes}
           loading={loading}
         />
         <LastVideos loading={loading} data={channelVideos?.latestVideos} />

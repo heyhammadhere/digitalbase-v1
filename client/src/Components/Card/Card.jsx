@@ -14,7 +14,10 @@ const Card = ({ heading, stats, previous, direction, loading, ...rest }) => {
           {stats ? (
             <div>
               <p className="card-body">
-                <span>{stats}</span>
+                <span>
+                  {direction === "up" ? "+" : "-"}
+                  {stats}
+                </span>
                 {direction ? (
                   <Icon
                     src={direction === "up" ? arrowUp : arrowDown}

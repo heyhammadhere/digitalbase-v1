@@ -9,6 +9,7 @@
   --bgPrimaryMain: #14112c;
   --bgPrimaryDark: #080421;
   --bgPrimaryLight: #24223b;
+  --bgPrimaryLightAsh: #2f2c4e;
 }
 
 ::-webkit-scrollbar {
@@ -136,6 +137,7 @@ body {
   font-size: 14px;
 }
 
+/* DateRange CSS Started */
 .date-range-filter {
   position: absolute;
   top: 150%;
@@ -150,18 +152,52 @@ body {
   pointer-events: all;
 }
 .rdrDateRangePickerWrapper * {
-  background-color: var(--bgPrimaryLight) !important;
+  background-color: var(--bgPrimaryLightAsh) !important;
   color: white !important;
 }
 .rdrDateRangePickerWrapper {
-  border: 2px solid var(--clrPrimaryDark);
+  border: 1px solid var(--clrPrimaryLight);
   border-radius: 1rem;
   overflow: hidden;
+}
+div.rdrDateRangePickerWrapper.date-range-filter.show
+  > div.rdrCalendarWrapper.rdrDateRangeWrapper
+  > div.rdrDateDisplayWrapper
+  > div
+  > span
+  > input {
+  border-radius: 5px !important;
+  /* box-shadow: 0px 0px 10px rgba(255, 255, 255); */
+}
+.rdrDateDisplayItem {
+  border: none !important;
+}
+.rdrDateDisplayItem > input {
+  background-color: var(--bgPrimaryLight) !important;
 }
 .rdrDayPassive * {
   color: var(--clrPrimaryLight) !important;
 }
-
+.rdrStaticRange {
+  background-color: var(--bgPrimaryLight) !important;
+  border: none !important;
+  padding: 0.6rem 0.8rem !important;
+}
+.rdrStaticRangeLabel {
+  margin: 0 !important;
+  border-radius: 0.5rem !important;
+}
+.rdrStaticRangeLabel:hover,
+.rdrDateDisplayItem > input:hover,
+.rdrMonthPicker > select:hover,
+.rdrYearPicker > select:hover,
+.rdrNextPrevButton:hover {
+  background-color: var(--bgPrimaryMain) !important;
+}
+.rdrMonthAndYearWrapper * {
+  background-color: var(--bgPrimaryLight) !important;
+}
+/* DateRange CSS ended */
 .youtube-content {
   display: grid;
   gap: 1rem;
@@ -286,6 +322,7 @@ body {
   border-radius: 0.25rem;
   background-color: #2a2747;
   transition: 100ms all ease-in-out;
+  user-select: none;
 }
 
 .card-action-button:active {
@@ -592,5 +629,11 @@ body {
   }
   .youtube-content {
     padding: 1rem;
+  }
+}
+@media screen and (max-width: 950px) {
+  .date-range-filter {
+    min-width: fit-content;
+    right: -110%;
   }
 }

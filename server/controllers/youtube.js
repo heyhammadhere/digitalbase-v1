@@ -62,9 +62,9 @@ const channelVideoData = tryCatch(async (req, res) => {
   // Got the PlayList Id from channelDetails to fetch the latest uploaded videos
   const playList = await youtubeDataInstance.playlistItems.list({
     part: "snippet",
-    playlistId: "PL0vfts4VzfNjQOM9VClyL5R0LeuTxlAR3",
-    // playlistId:
-    //   channelDetails.data.items[0].contentDetails.relatedPlaylists.uploads,
+    // playlistId: "PL0vfts4VzfNjQOM9VClyL5R0LeuTxlAR3",
+    playlistId:
+      channelDetails.data.items[0].contentDetails.relatedPlaylists.uploads,
     maxResults: 50,
   });
 
