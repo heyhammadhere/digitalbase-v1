@@ -149,6 +149,18 @@ body {
   opacity: 1;
   pointer-events: all;
 }
+.rdrDateRangePickerWrapper * {
+  background-color: var(--bgPrimaryLight) !important;
+  color: white !important;
+}
+.rdrDateRangePickerWrapper {
+  border: 2px solid var(--clrPrimaryDark);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.rdrDayPassive * {
+  color: var(--clrPrimaryLight) !important;
+}
 
 .youtube-content {
   display: grid;

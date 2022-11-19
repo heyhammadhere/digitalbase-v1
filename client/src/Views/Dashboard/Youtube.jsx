@@ -32,8 +32,8 @@ const Youtube = () => {
     try {
       const { status, data } = await fetchChannelVideos({
         tokens: user.token,
-        startDate: moment(range[0].startDate).format("yyyy-mm-dd"),
-        endDate: moment(range[0].endDate).format("yyyy-mm-dd"),
+        startDate: moment(range[0].startDate).format("yyyy-MM-DD"),
+        endDate: moment(range[0].endDate).format("yyyy-MM-DD"),
       });
       if (status !== 200) throw new Error("Invalid Request");
       setChannelVideos(data);
@@ -45,14 +45,28 @@ const Youtube = () => {
     try {
       const { status, data } = await fetchChannelData({
         tokens: user.token,
-        startDate: moment(range[0].startDate).format("yyyy-mm-dd"),
-        endDate: moment(range[0].endDate).format("yyyy-mm-dd"),
+        startDate: moment(range[0].startDate).format("yyyy-MM-DD"),
+        endDate: moment(range[0].endDate).format("yyyy-MM-DD"),
       });
       if (status !== 200) throw new Error("Invalid Request");
-      setChannelData(data);
+      const views = data.views.reduce((a, b) => a + b);
+      const likes = data.likes.reduce((a, b) => a + b);
+      const subsGained = data.subsGained.reduce((a, b) => a + b);
+      const subsLost = data.subsLost.reduce((a, b) => a + b);
+
+      setChannelData({
+        viewsArray: data.views,
+        views,
+        subscribers: {
+          count: subsGained >= subsLost ? subsGained : subsLost,
+          direction: subsGained >= subsLost ? "up" : "down",
+        },
+        likes,
+      });
     } catch ({ message }) {}
     setLoading(false);
   };
+  console.log(channelData);
   return (
     <>
       <ToastContainer
@@ -75,15 +89,15 @@ const Youtube = () => {
         <Card
           className="youtube-content-card-1"
           heading="Subscribers"
-          direction="up"
-          stats=""
+          direction={channelData?.subscribers?.direction}
+          stats={channelData?.subscribers?.count}
           loading={loading}
         />
         <Card
           className="youtube-content-card-2"
           heading="Views"
           direction="up"
-          stats=""
+          stats={channelData.views}
           loading={loading}
         />
         <Card
@@ -94,7 +108,7 @@ const Youtube = () => {
           loading={loading}
         />
         <LastVideos loading={loading} data={channelVideos?.latestVideos} />
-        <UserStatistics loading={loading} />
+        <UserStatistics data={channelData.viewsArray} loading={loading} />
         <TopKeywords loading={loading} data={channelVideos?.topThreeKeywords} />
         <TopVideo loading={loading} data={channelVideos?.mostViewedVideo} />
         <BestThumbnails

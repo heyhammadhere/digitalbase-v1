@@ -1,7 +1,7 @@
 import ActionButton from "../CardHeader";
 import Chart from "../Chart";
 
-const UserStatistics = ({ loading, ...rest }) => {
+const UserStatistics = ({ data, loading, ...rest }) => {
   return (
     <div className="youtube-content-card-5" {...rest}>
       <div>
@@ -50,7 +50,7 @@ const UserStatistics = ({ loading, ...rest }) => {
             series: [
               {
                 name: "Views",
-                data: [],
+                data: data,
               },
             ],
           }}
