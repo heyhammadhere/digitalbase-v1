@@ -1,6 +1,7 @@
 import CardHeader from "../CardHeader";
 
-const BestThumbnails = ({ loading, ...rest }) => {
+const BestThumbnails = ({ loading, data = [], ...rest }) => {
+  if (data.length > 3) data.length = 3;
   return (
     <div className="youtube-content-card-8" {...rest}>
       <div>
@@ -10,9 +11,9 @@ const BestThumbnails = ({ loading, ...rest }) => {
         "Loading..."
       ) : (
         <div>
-          {[].map(({ thumbnail, title, likes }, index) => (
+          {data.map(({ thumbnails, title, likes }, index) => (
             <div key={index} className="thumbnail">
-              <img className="thumbnail-img" src={thumbnail} alt="Thumbnail" />
+              <img className="thumbnail-img" src={thumbnails} alt="Thumbnail" />
               <div>
                 <p className="thumbnail-title">{title}</p>
                 <small className="thumbnail-views">{likes} Likes</small>
