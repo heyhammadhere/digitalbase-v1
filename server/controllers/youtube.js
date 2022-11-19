@@ -19,6 +19,7 @@ const getChannelData = async (req, res) => {
     });
 
     if (Object.keys(reports?.data).length) {
+      console.log(reports?.data);
       res.status(200).send(reports.data);
     } else {
       res.status(404).send({ message: "Reports Not found" });
