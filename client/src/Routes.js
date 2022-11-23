@@ -15,12 +15,15 @@ import {
   Profile,
   Logout,
 } from "./Views/Dashboard";
+import { Privacy, Terms } from "./Views/static";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <RoutesWrapper>
         <Route path="/login" element={<Login />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
+        <Route path="/terms-of-services" element={<Terms />} />
         <Route
           path="/"
           element={

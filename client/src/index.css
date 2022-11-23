@@ -618,6 +618,23 @@ div.rdrDateRangePickerWrapper.date-range-filter.show
     overflow: initial;
   }
 }
+.privacy-heading-1 {
+  font-size: 5rem;
+}
+.privacy-heading-1 > strong {
+  font-weight: 700;
+}
+.privacy-paragraph {
+  margin-bottom: 3rem;
+  font-size: large;
+  font-weight: 300;
+}
+.privacy-wrapper {
+  padding: 6rem 12rem;
+}
+.privacy-wrapper {
+  color: var(--clrPrimaryDark);
+}
 
 @media screen and (max-width: 768px) {
   .header {
