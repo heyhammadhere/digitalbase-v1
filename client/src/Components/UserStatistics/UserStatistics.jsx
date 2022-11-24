@@ -1,7 +1,7 @@
 import ActionButton from "../CardHeader";
 import Chart from "../Chart";
 
-const UserStatistics = ({ data, loading, ...rest }) => {
+const UserStatistics = ({ loading, data = [], ...rest }) => {
   return (
     <div className="youtube-content-card-5" {...rest}>
       <div>
@@ -9,7 +9,7 @@ const UserStatistics = ({ data, loading, ...rest }) => {
       </div>
       {loading ? (
         "Loading..."
-      ) : (
+      ) : data.length ? (
         <Chart
           options={{
             chart: {
@@ -55,6 +55,8 @@ const UserStatistics = ({ data, loading, ...rest }) => {
             ],
           }}
         />
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );

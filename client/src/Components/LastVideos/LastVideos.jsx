@@ -9,10 +9,12 @@ const LastVideos = ({ loading, data = [], ...rest }) => {
       </div>
       {loading ? (
         "Loading..."
-      ) : (
+      ) : data.length ? (
         <div>
           <IframeRenderer videos={data} />
         </div>
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );

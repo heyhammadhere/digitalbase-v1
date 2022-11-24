@@ -8,7 +8,7 @@ const TopKeywords = ({ loading, data = [], ...rest }) => {
       </div>
       {loading ? (
         "Loading..."
-      ) : (
+      ) : data.length ? (
         <div>
           {data.map((keyword, index) => (
             <div key={index} className="keyword">
@@ -20,6 +20,8 @@ const TopKeywords = ({ loading, data = [], ...rest }) => {
             </div>
           ))}
         </div>
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );

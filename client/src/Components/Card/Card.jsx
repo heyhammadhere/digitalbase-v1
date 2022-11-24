@@ -2,14 +2,13 @@ import CardHeader from "../CardHeader";
 import Icon from "../Icon";
 import arrowDown from "../../Assets/icons/arrow-down.svg";
 import arrowUp from "../../Assets/icons/arrow-up.svg";
-import arrowRight from "../../Assets/icons/arrow-right.svg";
 const Card = ({ heading, stats, previous, direction, loading, ...rest }) => {
   return (
     <div {...rest}>
       <CardHeader title={heading} />
       {loading ? (
         "Loading..."
-      ) : (
+      ) : stats ? (
         <>
           {stats ? (
             <div>
@@ -44,6 +43,8 @@ const Card = ({ heading, stats, previous, direction, loading, ...rest }) => {
             </div>
           ) : null}
         </>
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );

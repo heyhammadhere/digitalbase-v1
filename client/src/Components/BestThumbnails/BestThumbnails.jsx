@@ -9,7 +9,7 @@ const BestThumbnails = ({ loading, data = [], ...rest }) => {
       </div>
       {loading ? (
         "Loading..."
-      ) : (
+      ) : data.length ? (
         <div>
           {data.map(({ thumbnails, title, likes }, index) => (
             <div key={index} className="thumbnail">
@@ -21,6 +21,8 @@ const BestThumbnails = ({ loading, data = [], ...rest }) => {
             </div>
           ))}
         </div>
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );
