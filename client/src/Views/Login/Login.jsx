@@ -17,9 +17,7 @@ const Login = () => {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   }, []);
-  const handleOnFailure = useCallback((error) => {
-    console.log(error);
-  }, []);
+  const handleOnFailure = useCallback((error) => {}, []);
   useEffect(() => {
     function start() {
       gapi.client.init({

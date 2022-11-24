@@ -1,5 +1,5 @@
 const Icon = ({ size = 20, src = "", margin = "" }) => {
-  return (
+  return src ? (
     <img
       src={src}
       style={{
@@ -9,6 +9,14 @@ const Icon = ({ size = 20, src = "", margin = "" }) => {
       }}
       alt="Icon"
     />
+  ) : (
+    <span
+      style={{
+        width: size,
+        height: size,
+        margin: margin,
+      }}
+    ></span>
   );
 };
 
