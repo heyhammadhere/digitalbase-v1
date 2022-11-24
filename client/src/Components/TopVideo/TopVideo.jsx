@@ -9,10 +9,12 @@ const TopVideo = ({ loading, data = {}, ...rest }) => {
       </div>
       {loading ? (
         "Loading"
-      ) : (
+      ) : Object.keys(data).length ? (
         <div>
           <IframeRenderer videos={[data]} />
         </div>
+      ) : (
+        <p>No Data To Show</p>
       )}
     </div>
   );

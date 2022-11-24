@@ -167,7 +167,6 @@ div.rdrDateRangePickerWrapper.date-range-filter.show
   > span
   > input {
   border-radius: 5px !important;
-  /* box-shadow: 0px 0px 10px rgba(255, 255, 255); */
 }
 .rdrDateDisplayItem {
   border: none !important;
@@ -197,6 +196,7 @@ div.rdrDateRangePickerWrapper.date-range-filter.show
 .rdrMonthAndYearWrapper * {
   background-color: var(--bgPrimaryLight) !important;
 }
+
 /* DateRange CSS ended */
 .youtube-content {
   display: grid;

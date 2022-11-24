@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import moment from "moment";
-import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthProvider";
 import DateRangePicker from "../../Components/DateRangePicker";
 import Card from "../../Components/Card";
@@ -14,10 +13,11 @@ import { fetchChannelVideos, fetchChannelData } from "../../Services/dashboard";
 const Youtube = () => {
   const [user] = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [range, setRange] = useState([
     {
-      startDate: new Date(),
-      endDate: moment().add(1, "months"),
+      startDate: moment().subtract(29, "days")._d,
+      endDate: moment()._d,
       key: "range",
     },
   ]);
@@ -27,6 +27,12 @@ const Youtube = () => {
     handleFetchChannelVideos();
     handleFetchChannelData();
   }, []);
+  useEffect(() => {
+    if (!isOpen) {
+      handleFetchChannelVideos();
+      handleFetchChannelData();
+    }
+  }, [isOpen]);
   const handleFetchChannelVideos = async () => {
     setLoading(true);
     try {
@@ -53,7 +59,6 @@ const Youtube = () => {
       const likes = data.likes.reduce((a, b) => a + b);
       const subsGained = data.subsGained.reduce((a, b) => a + b);
       const subsLost = data.subsLost.reduce((a, b) => a + b);
-
       setChannelData({
         viewsArray: data.views,
         views,
@@ -66,24 +71,18 @@ const Youtube = () => {
     } catch ({ message }) {}
     setLoading(false);
   };
-  console.log(channelData);
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        pauseOnHover
-      />
       <div className="youtube-header">
         <div>
           <h1 className="youtube-header-title">Overview</h1>
         </div>
-        <DateRangePicker range={range} setRange={setRange} />
+        <DateRangePicker
+          range={range}
+          setRange={setRange}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
       </div>
       <div className="youtube-content">
         <Card
@@ -97,7 +96,7 @@ const Youtube = () => {
           className="youtube-content-card-2"
           heading="Views"
           direction="up"
-          stats={channelData.views}
+          stats={channelData?.views}
           loading={loading}
         />
         <Card
