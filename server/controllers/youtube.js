@@ -24,7 +24,6 @@ const getChannelData = tryCatch(async (req, res) => {
     metrics: "views,subscribersGained,likes",
     startDate: moment(endDate)
       .subtract(moment(endDate).diff(startDate, "days") + 1, "days")
-      .add(1, "days")
       .format("YYYY-MM-DD"),
     dimensions: "day",
   });
