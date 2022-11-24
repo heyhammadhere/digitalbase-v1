@@ -1,41 +1,81 @@
 const { google } = require("googleapis");
 const tryCatch = require("../utils/tryCatch");
-
+const moment = require("moment");
 const oAuth2Client = new google.auth.OAuth2();
 
 const getChannelData = tryCatch(async (req, res) => {
-  const tokens = req.body.tokens;
+  const { tokens, startDate, endDate } = req.body;
   oAuth2Client.setCredentials(tokens);
   const youtubeAnalytics = google.youtubeAnalytics({
     version: "v2",
     auth: oAuth2Client,
   });
-  const reports = await youtubeAnalytics.reports.query({
-    endDate: "2022-09-01",
+  const currentMonth = await youtubeAnalytics.reports.query({
+    endDate: moment(endDate).format("YYYY-MM-DD"),
     ids: "channel==MINE",
-    metrics: "views,subscribersGained,subscribersLost,likes",
-    startDate: "2012-08-01",
+    metrics: "views,subscribersGained,likes",
+    startDate: moment(startDate).format("YYYY-MM-DD"),
     dimensions: "day",
   });
 
-  if (Object.keys(reports?.data).length) {
-    const views = reports.data.rows.map((row) => {
-      return row[1];
+  const previousMonth = await youtubeAnalytics.reports.query({
+    endDate: moment(endDate).format("YYYY-MM-DD"),
+    ids: "channel==MINE",
+    metrics: "views,subscribersGained,likes",
+    startDate: moment(endDate)
+      .subtract(moment(endDate).diff(startDate, "days") + 1, "days")
+      .add(1, "days")
+      .format("YYYY-MM-DD"),
+    dimensions: "day",
+  });
+
+  if (Object.keys(currentMonth?.data).length) {
+    const currentMonthData = {
+      views: [],
+      subsGained: [],
+      likes: [],
+    };
+    currentMonth.data.rows.forEach((row) => {
+      currentMonthData.views.push(row[1]);
+      currentMonthData.subsGained.push(row[2]);
+      currentMonthData.likes.push(row[3]);
     });
-    const subsGained = reports.data.rows.map((row) => {
-      return row[2];
-    });
-    const subsLost = reports.data.rows.map((row) => {
-      return row[3];
-    });
-    const likes = reports.data.rows.map((row) => {
-      return row[4];
+    const priorMonthData = {
+      views: [],
+      subsGained: [],
+      likes: [],
+    };
+
+    function add(a, b) {
+      return a + b;
+    }
+
+    const reduceArrays = (object) => {
+      let result = {};
+      Object.keys(object).forEach((obj) => {
+        result = {
+          ...result,
+          [obj]: object[obj].reduce(add, 0),
+        };
+      });
+
+      return result;
+    };
+
+    previousMonth.data.rows.forEach((row) => {
+      priorMonthData.views.push(row[1]);
+      priorMonthData.subsGained.push(row[2]);
+      priorMonthData.likes.push(row[3]);
     });
     res.status(200).json({
-      views,
-      subsGained,
-      subsLost,
-      likes,
+      currentData: {
+        ...reduceArrays(currentMonthData),
+        rawData: currentMonthData,
+      },
+      previousData: {
+        ...reduceArrays(priorMonthData),
+        rawData: priorMonthData,
+      },
     });
   } else {
     throw new Error("Reports Not found");

@@ -38,8 +38,8 @@ const Youtube = () => {
     try {
       const { status, data } = await fetchChannelVideos({
         tokens: user.token,
-        startDate: moment(range[0].startDate).format("yyyy-MM-DD"),
-        endDate: moment(range[0].endDate).format("yyyy-MM-DD"),
+        startDate: moment(range[0].startDate),
+        endDate: moment(range[0].endDate),
       });
       if (status !== 200) throw new Error("Invalid Request");
       setChannelVideos(data);
@@ -51,8 +51,8 @@ const Youtube = () => {
     try {
       const { status, data } = await fetchChannelData({
         tokens: user.token,
-        startDate: moment(range[0].startDate).format("yyyy-MM-DD"),
-        endDate: moment(range[0].endDate).format("yyyy-MM-DD"),
+        startDate: moment(range[0].startDate),
+        endDate: moment(range[0].endDate),
       });
       if (status !== 200) throw new Error("Invalid Request");
       const views = data.views.reduce((a, b) => a + b);
