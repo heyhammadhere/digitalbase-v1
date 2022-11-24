@@ -21,6 +21,7 @@ const Youtube = () => {
       key: "range",
     },
   ]);
+  const [duration, setDuration] = useState(0);
   const [channelVideos, setChannelVideos] = useState({});
   const [channelData, setChannelData] = useState({});
   useEffect(() => {
@@ -33,6 +34,9 @@ const Youtube = () => {
       handleFetchChannelData();
     }
   }, [isOpen]);
+  useEffect(() => {
+    setDuration(moment(range[0].endDate).diff(range[0].startDate, "days") + 1);
+  }, [range]);
   const handleFetchChannelVideos = async () => {
     setLoading(true);
     try {
@@ -55,19 +59,7 @@ const Youtube = () => {
         endDate: moment(range[0].endDate),
       });
       if (status !== 200) throw new Error("Invalid Request");
-      const views = data.views.reduce((a, b) => a + b);
-      const likes = data.likes.reduce((a, b) => a + b);
-      const subsGained = data.subsGained.reduce((a, b) => a + b);
-      const subsLost = data.subsLost.reduce((a, b) => a + b);
-      setChannelData({
-        viewsArray: data.views,
-        views,
-        subscribers: {
-          count: subsGained >= subsLost ? subsGained : subsLost,
-          direction: subsGained >= subsLost ? "up" : "down",
-        },
-        likes,
-      });
+      setChannelData(data);
     } catch ({ message }) {}
     setLoading(false);
   };
@@ -82,32 +74,39 @@ const Youtube = () => {
           setRange={setRange}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+          duration={duration}
         />
       </div>
       <div className="youtube-content">
         <Card
           className="youtube-content-card-1"
           heading="Subscribers"
-          direction={channelData?.subscribers?.direction}
-          stats={channelData?.subscribers?.count}
+          stats={channelData?.currentData?.subsGained}
+          previous={channelData?.previousData?.subsGained}
+          duration={duration}
           loading={loading}
         />
         <Card
           className="youtube-content-card-2"
           heading="Views"
-          direction="up"
-          stats={channelData?.views}
+          stats={channelData?.currentData?.views}
+          previous={channelData?.previousData?.views}
+          duration={duration}
           loading={loading}
         />
         <Card
           className="youtube-content-card-3"
           heading="Likes"
-          direction="up"
-          stats={channelData?.likes}
+          stats={channelData?.currentData?.likes}
+          previous={channelData?.previousData?.likes}
+          duration={duration}
           loading={loading}
         />
         <LastVideos loading={loading} data={channelVideos?.latestVideos} />
-        <UserStatistics data={channelData.viewsArray} loading={loading} />
+        <UserStatistics
+          data={channelData?.currentData?.rawData?.views}
+          loading={loading}
+        />
         <TopKeywords loading={loading} data={channelVideos?.topThreeKeywords} />
         <TopVideo loading={loading} data={channelVideos?.mostViewedVideo} />
         <BestThumbnails
