@@ -44,7 +44,7 @@ const Card = ({ heading, stats, previous, duration, loading, ...rest }) => {
                       const inPercentage = (change / previous) * 100;
                       return [NaN, Infinity, -Infinity].includes(inPercentage)
                         ? 0
-                        : inPercentage;
+                        : Math.floor(inPercentage);
                     } catch (error) {
                       return 0;
                     }

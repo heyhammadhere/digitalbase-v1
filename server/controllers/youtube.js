@@ -11,10 +11,12 @@ const getChannelData = tryCatch(async (req, res) => {
     auth: oAuth2Client,
   });
   const currentMonth = await youtubeAnalytics.reports.query({
-    endDate: moment(endDate).format("YYYY-MM-DD"),
+    endDate: moment(Date.now()).format("YYYY-MM-DD"),
     ids: "channel==MINE",
     metrics: "views,subscribersGained,likes",
-    startDate: moment(startDate).format("YYYY-MM-DD"),
+    startDate: moment(Date.now())
+      .subtract(moment(endDate).diff(startDate, "days") + 1, "days")
+      .format("YYYY-MM-DD"),
     dimensions: "day",
   });
 
